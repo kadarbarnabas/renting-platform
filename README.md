@@ -30,5 +30,5 @@ Ez a projekt egy webalapú platform, amely lehetővé teszi felhasználók szám
 
 ## 👥 Közreműködők
  - **Angyal Sándor**
- - **Tomán Péter**
+ - **Kovács Bence**
  - **Kádár Barnabás**
