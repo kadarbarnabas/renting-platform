@@ -1,0 +1,37 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor User
+actor Admin
+
+rectangle "Car Rental Platform" {
+    rectangle "User Module" {
+        User --> (Search Cars) : searches for cars
+        User --> (View Car Details) : views details of a car
+        User --> (Book Car) : books a car
+        User --> (Make Payment) : makes payment for booking
+        User --> (View Booking History) : views past bookings
+        User --> (Cancel Booking) : cancels an existing booking
+    }
+
+    rectangle "Admin Module" {
+        Admin --> (Add Car) : adds a new car to inventory
+        Admin --> (Update Car) : updates car information
+        Admin --> (Delete Car) : deletes a car from inventory
+        Admin --> (View All Bookings) : views all bookings in the system
+        Admin --> (Manage Users) : manages user accounts
+        Admin --> (Generate Reports) : generates booking and revenue reports
+    }
+
+    rectangle "Shared Components" {
+        (Login) <.. User : logs in
+        (Login) <.. Admin : logs in
+        (Logout) <.. User : logs out
+        (Logout) <.. Admin : logs out
+        (Manage Profile) <.. User : manages personal profile
+        (Manage Profile) <.. Admin : manages admin profile
+    }
+}
+
+@enduml

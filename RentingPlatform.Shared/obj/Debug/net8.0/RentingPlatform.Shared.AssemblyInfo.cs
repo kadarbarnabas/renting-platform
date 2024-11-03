@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RentingPlatform.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e935200b42f64266318e04df2ff08105217c961")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8adb145831af1867a4cb2edd1237bf7064836f45")]
 [assembly: System.Reflection.AssemblyProductAttribute("RentingPlatform.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RentingPlatform.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

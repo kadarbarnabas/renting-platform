@@ -5508,24 +5508,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kadar\\.nuget\\packages\\": {}
+    "C:\\Users\\Bence\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kadar\\Desktop\\RentingPlatform\\RentingPlatform\\renting-platform\\RentingPlatform.Test\\RentingPlatform.Test.csproj",
+      "projectUniqueName": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\renting-platform\\RentingPlatform.Test\\RentingPlatform.Test.csproj",
       "projectName": "RentingPlatform.Test",
-      "projectPath": "C:\\Users\\kadar\\Desktop\\RentingPlatform\\RentingPlatform\\renting-platform\\RentingPlatform.Test\\RentingPlatform.Test.csproj",
-      "packagesPath": "C:\\Users\\kadar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kadar\\Desktop\\RentingPlatform\\RentingPlatform\\renting-platform\\RentingPlatform.Test\\obj\\",
+      "projectPath": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\renting-platform\\RentingPlatform.Test\\RentingPlatform.Test.csproj",
+      "packagesPath": "C:\\Users\\Bence\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\renting-platform\\RentingPlatform.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kadar\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Bence\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5582,7 +5585,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
