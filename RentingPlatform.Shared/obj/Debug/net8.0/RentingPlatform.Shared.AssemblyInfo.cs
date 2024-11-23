@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RentingPlatform.Shared")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5de9ef5afd8eba10c89a5a1949b762ce7ec7a2a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+278958c4244666f1585c3c3cece11d36d0d638ea")]
 [assembly: System.Reflection.AssemblyProductAttribute("RentingPlatform.Shared")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RentingPlatform.Shared")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
