@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RentingPlatform.UI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+278958c4244666f1585c3c3cece11d36d0d638ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2e91abde3e606db47eec45649a8e4d38b08d7f32")]
 [assembly: System.Reflection.AssemblyProductAttribute("RentingPlatform.UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RentingPlatform.UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

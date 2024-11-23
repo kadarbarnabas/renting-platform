@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentingPlatform.Shared
 {
-    public class Customer
+    public class Users
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Ugyfelszam { get; set; }
+        public Guid UserId { get; set; }
 
         [Required]
         public string Name { get; set; }
