@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentingPlatform;
 
@@ -10,9 +11,11 @@ using RentingPlatform;
 namespace RentingPlatform.Migrations
 {
     [DbContext(typeof(RentingPlatformContext))]
-    partial class RentingPlatformContextModelSnapshot : ModelSnapshot
+    [Migration("20241124171452_car_create")]
+    partial class car_create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,13 +84,10 @@ namespace RentingPlatform.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<byte[]>("Image")
+                        .IsRequired()
                         .HasColumnType("BLOB");
 
                     b.Property<string>("Model")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("OwnerId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -97,8 +97,6 @@ namespace RentingPlatform.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("CarId");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("Cars");
                 });
@@ -127,17 +125,6 @@ namespace RentingPlatform.Migrations
                 });
 
             modelBuilder.Entity("RentingPlatform.Shared.Airbnb", b =>
-                {
-                    b.HasOne("RentingPlatform.Shared.Users", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("RentingPlatform.Shared.Car", b =>
                 {
                     b.HasOne("RentingPlatform.Shared.Users", "Owner")
                         .WithMany()

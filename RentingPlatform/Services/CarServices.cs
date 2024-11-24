@@ -24,7 +24,7 @@ public class CarService : ICarService
 
     public async Task<Car> Get(Guid id)
     {
-        var car = await _context.Cars.FindAsync(id);
+        var car = await _context.Cars.Include(x => x.Owner).FirstOrDefaultAsync(x => x.CarId == id);
         _logger.LogInformation("Car has been retrieved: {@Car}", car);
         return car;
     }
@@ -48,6 +48,7 @@ public class CarService : ICarService
         var car = await Get(updatedCar.CarId);
         car.Brand = updatedCar.Brand;
         car.Model = updatedCar.Model;
+        car.PlateNumber = updatedCar.PlateNumber;
         car.Description = updatedCar.Description;
         car.Image = updatedCar.Image;
         await _context.SaveChangesAsync();

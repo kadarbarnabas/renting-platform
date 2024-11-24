@@ -23,7 +23,10 @@ namespace RentingPlatform.Shared
 
         public string Description { get; set; }
         
-        [Required]
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
+
+        public Guid? OwnerId { get; set; }
+
+        public virtual Users? Owner { get; set; }
     }
 }
