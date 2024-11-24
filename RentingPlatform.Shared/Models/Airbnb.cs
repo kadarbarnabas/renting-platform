@@ -31,6 +31,9 @@ namespace RentingPlatform.Shared
         [Required]
         public Guid OwnerId { get; set; } 
 
+        [ForeignKey(nameof(OwnerId))]
+        public virtual Users Owner { get; set; } 
+
         public string ImageUrl { get; set; } 
 
         [Required]
