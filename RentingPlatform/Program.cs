@@ -22,6 +22,7 @@ builder.Services.AddDbContext<RentingPlatformContext>(options =>
 }, ServiceLifetime.Scoped);
 
 builder.Services.AddScoped<IUsersService, UsersService>(); //TODO Ide nektek is fell kell sorolni majd a dolgokat értelem szerűen
+builder.Services.AddScoped<IAirbnbService, AirbnbService>();
 
 builder.Services.AddScoped<ICarService, CarService>();
 
