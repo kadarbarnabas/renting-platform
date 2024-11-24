@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RentingPlatform.Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+278958c4244666f1585c3c3cece11d36d0d638ea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b1099b4662d0f9bfbe092f8c47f676f0cd19ce90")]
 [assembly: System.Reflection.AssemblyProductAttribute("RentingPlatform.Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RentingPlatform.Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

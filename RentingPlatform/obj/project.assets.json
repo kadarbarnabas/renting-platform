@@ -3738,19 +3738,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\kadar\\.nuget\\packages\\": {}
+    "C:\\Users\\Bence\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kadar\\Desktop\\rentingPlatform\\RentingPlatform\\RentingPlatform.csproj",
+      "projectUniqueName": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\round2\\renting-platform\\RentingPlatform\\RentingPlatform.csproj",
       "projectName": "RentingPlatform",
-      "projectPath": "C:\\Users\\kadar\\Desktop\\rentingPlatform\\RentingPlatform\\RentingPlatform.csproj",
-      "packagesPath": "C:\\Users\\kadar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kadar\\Desktop\\rentingPlatform\\RentingPlatform\\obj\\",
+      "projectPath": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\round2\\renting-platform\\RentingPlatform\\RentingPlatform.csproj",
+      "packagesPath": "C:\\Users\\Bence\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\round2\\renting-platform\\RentingPlatform\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\kadar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Bence\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3765,8 +3765,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\kadar\\Desktop\\rentingPlatform\\RentingPlatform.Shared\\RentingPlatform.Shared.csproj": {
-              "projectPath": "C:\\Users\\kadar\\Desktop\\rentingPlatform\\RentingPlatform.Shared\\RentingPlatform.Shared.csproj"
+            "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\round2\\renting-platform\\RentingPlatform.Shared\\RentingPlatform.Shared.csproj": {
+              "projectPath": "C:\\Users\\Bence\\Documents\\Iskola\\egyetem\\5.felév\\nagyszfm\\round2\\renting-platform\\RentingPlatform.Shared\\RentingPlatform.Shared.csproj"
             }
           }
         }
@@ -3832,7 +3832,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
