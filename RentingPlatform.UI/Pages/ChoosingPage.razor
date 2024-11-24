@@ -1,0 +1,35 @@
+﻿@page "/home"
+@inject NavigationManager NavigationManager
+
+<h3>Welcome to the Dashboard</h3>
+
+<div class="d-flex justify-content-start">
+    <button class="btn btn-primary m-2" @onclick="NavigateToCars">
+        <i class="bi bi-car-front"></i>
+    </button>
+
+    <button class="btn btn-secondary m-2" @onclick="NavigateToAdmin">
+        <i class="bi bi-shield-lock"></i>
+    </button>
+
+    <button class="btn btn-success m-2" @onclick="NavigateToAirbnb">
+        <i class="bi bi-house-door"></i>
+    </button>
+</div>
+
+@code {
+    private void NavigateToCars()
+    {
+        NavigationManager.NavigateTo("/cars");
+    }
+
+    private void NavigateToAdmin()
+    {
+        NavigationManager.NavigateTo("/admin");
+    }
+
+    private void NavigateToAirbnb()
+    {
+        NavigationManager.NavigateTo("/airbnb");
+    }
+}

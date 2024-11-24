@@ -11,7 +11,7 @@ namespace RentingPlatform.Shared
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid UserId { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
+        //Optional
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Email is required")]

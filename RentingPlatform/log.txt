@@ -1,680 +1,166 @@
-2024-11-24 16:01:28.074 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 16:01:28.091 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 16:01:28.093 +01:00 [INF] Hosting environment: Development
-2024-11-24 16:01:28.095 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 16:01:36.686 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/ - null null
-2024-11-24 16:01:36.715 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 16:01:36.720 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/ - 404 0 null 35.2207ms
-2024-11-24 16:01:36.730 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5169/, Response status code: 404
-2024-11-24 16:01:41.663 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 16:01:41.714 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 50.9978ms
-2024-11-24 16:01:41.867 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 16:01:41.970 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 103.8837ms
-2024-11-24 16:01:54.089 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Users - null null
-2024-11-24 16:01:54.095 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform)'
-2024-11-24 16:01:54.107 +01:00 [INF] Route matched with {action = "GetAllUsers", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Users]]] GetAllUsers() on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
-2024-11-24 16:01:54.225 +01:00 [INF] Every user has been fetched
-2024-11-24 16:01:54.612 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform) in 499.5535ms
-2024-11-24 16:01:54.615 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform)'
-2024-11-24 16:01:54.618 +01:00 [ERR] An unhandled exception has occurred while executing the request.
-System.InvalidOperationException: Property 'Airbnb.Owner' is not virtual. 'UseChangeTrackingProxies' requires all entity types to be public, unsealed, have virtual properties, and have a public or protected constructor. 'UseLazyLoadingProxies' requires only the navigation properties be virtual.
-   at Microsoft.EntityFrameworkCore.Proxies.Internal.ProxyBindingRewriter.ProcessModelFinalizing(IConventionModelBuilder modelBuilder, IConventionContext`1 context)
-   at Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal.ConventionDispatcher.ImmediateConventionScope.OnModelFinalizing(IConventionModelBuilder modelBuilder)
-   at Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal.ConventionDispatcher.OnModelFinalizing(IConventionModelBuilder modelBuilder)
-   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.FinalizeModel()
-   at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
-   at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
-   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
-   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
-   at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
-   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
-   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
-   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
-   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
-   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
-   at Microsoft.EntityFrameworkCore.DbContext.get_Model()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Collections.Generic.IAsyncEnumerable<TEntity>.GetAsyncEnumerator(CancellationToken cancellationToken)
-   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
-   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
-   at RentingPlatform.UsersService.GetAllUsers() in C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform\Services\UsersService.cs:line 43
-   at RentingPlatform.Controllers.UsersController.GetAllUsers() in C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform\Controllers\UsersController.cs:line 63
-   at lambda_method6(Closure, Object)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
---- End of stack trace from previous location ---
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
-   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
-   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
-   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
-   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
-2024-11-24 16:01:54.663 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Users - 500 null text/plain; charset=utf-8 573.2602ms
-2024-11-24 17:27:49.501 +01:00 [INF] Application is shutting down...
-2024-11-24 17:29:40.740 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 17:29:40.757 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 17:29:40.759 +01:00 [INF] Hosting environment: Development
-2024-11-24 17:29:40.761 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 17:29:57.304 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 17:29:57.374 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 70.9964ms
-2024-11-24 17:29:57.476 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 17:29:57.621 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 145.586ms
-2024-11-24 17:30:07.908 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car - null null
-2024-11-24 17:30:07.916 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 17:30:07.919 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 17:30:07.934 +01:00 [INF] Route matched with {action = "GetAll", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Car]]] GetAll() on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 17:30:08.005 +01:00 [INF] Every car has been fetched
-2024-11-24 17:30:08.435 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.GetAll (RentingPlatform) in 495.4591ms
-2024-11-24 17:30:08.438 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 17:30:08.440 +01:00 [ERR] An unhandled exception has occurred while executing the request.
-System.InvalidOperationException: Property 'Airbnb.Owner' is not virtual. 'UseChangeTrackingProxies' requires all entity types to be public, unsealed, have virtual properties, and have a public or protected constructor. 'UseLazyLoadingProxies' requires only the navigation properties be virtual.
-   at Microsoft.EntityFrameworkCore.Proxies.Internal.ProxyBindingRewriter.ProcessModelFinalizing(IConventionModelBuilder modelBuilder, IConventionContext`1 context)
-   at Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal.ConventionDispatcher.ImmediateConventionScope.OnModelFinalizing(IConventionModelBuilder modelBuilder)
-   at Microsoft.EntityFrameworkCore.Metadata.Conventions.Internal.ConventionDispatcher.OnModelFinalizing(IConventionModelBuilder modelBuilder)
-   at Microsoft.EntityFrameworkCore.Metadata.Internal.Model.FinalizeModel()
-   at Microsoft.EntityFrameworkCore.Infrastructure.ModelRuntimeInitializer.Initialize(IModel model, Boolean designTime, IDiagnosticsLogger`1 validationLogger)
-   at Microsoft.EntityFrameworkCore.Infrastructure.ModelSource.GetModel(DbContext context, ModelCreationDependencies modelCreationDependencies, Boolean designTime)
-   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.CreateModel(Boolean designTime)
-   at Microsoft.EntityFrameworkCore.Internal.DbContextServices.get_Model()
-   at Microsoft.EntityFrameworkCore.Infrastructure.EntityFrameworkServicesBuilder.<>c.<TryAddCoreServices>b__8_4(IServiceProvider p)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
-   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
-   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
-   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
-   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
-   at Microsoft.EntityFrameworkCore.DbContext.get_DbContextDependencies()
-   at Microsoft.EntityFrameworkCore.DbContext.get_ContextServices()
-   at Microsoft.EntityFrameworkCore.DbContext.get_Model()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityType()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.CheckState()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.get_EntityQueryable()
-   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.System.Collections.Generic.IAsyncEnumerable<TEntity>.GetAsyncEnumerator(CancellationToken cancellationToken)
-   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
-   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
-   at RentingPlatform.CarService.GetAll() in C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform\Services\CarServices.cs:line 43
-   at RentingPlatform.Controllers.CarController.GetAll() in C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform\Controllers\CarController.cs:line 71
-   at lambda_method6(Closure, Object)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
---- End of stack trace from previous location ---
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
-   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
-   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
-   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
-   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
-2024-11-24 17:30:08.484 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car - 500 null text/plain; charset=utf-8 575.798ms
-2024-11-24 17:31:05.542 +01:00 [INF] Application is shutting down...
-2024-11-24 18:16:21.655 +01:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:16:21.683 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:16:21.699 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "MigrationId", "ProductVersion"
-FROM "__EFMigrationsHistory"
-ORDER BY "MigrationId";
-2024-11-24 18:16:21.713 +01:00 [INF] Applying migration '20241124171452_car_create'.
-2024-11-24 18:16:21.759 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE TABLE "Cars" (
-    "CarId" TEXT NOT NULL CONSTRAINT "PK_Cars" PRIMARY KEY,
-    "Brand" TEXT NOT NULL,
-    "Model" TEXT NOT NULL,
-    "PlateNumber" TEXT NOT NULL,
-    "Description" TEXT NOT NULL,
-    "Image" BLOB NOT NULL
-);
-2024-11-24 18:16:21.765 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE INDEX "IX_Airbnb_OwnerId" ON "Airbnb" ("OwnerId");
-2024-11-24 18:16:21.768 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE TABLE "ef_temp_Airbnb" (
-    "AirbnbId" TEXT NOT NULL CONSTRAINT "PK_Airbnb" PRIMARY KEY,
-    "Amenities" TEXT NOT NULL,
-    "CreatedAt" TEXT NOT NULL,
-    "Description" TEXT NOT NULL,
-    "ImageUrl" TEXT NOT NULL,
-    "Location" TEXT NOT NULL,
-    "MaxGuests" INTEGER NOT NULL,
-    "Name" TEXT NOT NULL,
-    "OwnerId" TEXT NOT NULL,
-    "PricePerNight" TEXT NOT NULL,
-    CONSTRAINT "FK_Airbnb_User_OwnerId" FOREIGN KEY ("OwnerId") REFERENCES "User" ("UserId") ON DELETE CASCADE
-);
-2024-11-24 18:16:21.772 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "ef_temp_Airbnb" ("AirbnbId", "Amenities", "CreatedAt", "Description", "ImageUrl", "Location", "MaxGuests", "Name", "OwnerId", "PricePerNight")
-SELECT "AirbnbId", "Amenities", "CreatedAt", "Description", "ImageUrl", "Location", "MaxGuests", "Name", "OwnerId", "PricePerNight"
-FROM "Airbnb";
-2024-11-24 18:16:21.778 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-PRAGMA foreign_keys = 0;
-2024-11-24 18:16:21.781 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-DROP TABLE "Airbnb";
-2024-11-24 18:16:21.784 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-ALTER TABLE "ef_temp_Airbnb" RENAME TO "Airbnb";
-2024-11-24 18:16:21.788 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-PRAGMA foreign_keys = 1;
-2024-11-24 18:16:21.791 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE INDEX "IX_Airbnb_OwnerId" ON "Airbnb" ("OwnerId");
-2024-11-24 18:16:21.794 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20241124171452_car_create', '8.0.3');
-2024-11-24 18:16:46.384 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 18:16:46.401 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 18:16:46.403 +01:00 [INF] Hosting environment: Development
-2024-11-24 18:16:46.404 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 18:17:00.044 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 18:17:00.117 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 73.595ms
-2024-11-24 18:17:00.251 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 18:17:00.363 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 112.385ms
-2024-11-24 18:17:08.165 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car - null null
-2024-11-24 18:17:08.173 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 18:17:08.176 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:17:08.193 +01:00 [INF] Route matched with {action = "GetAll", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Car]]] GetAll() on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:17:08.264 +01:00 [INF] Every car has been fetched
-2024-11-24 18:17:08.830 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-2024-11-24 18:17:08.852 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Car, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
-2024-11-24 18:17:08.863 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.GetAll (RentingPlatform) in 664.5046ms
-2024-11-24 18:17:08.865 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:17:08.871 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car - 200 null application/json; charset=utf-8 705.7189ms
-2024-11-24 18:17:58.528 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5169/Car - application/json 146
-2024-11-24 18:17:58.533 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:17:58.534 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:17:58.544 +01:00 [INF] Route matched with {action = "Create", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:17:58.573 +01:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
-2024-11-24 18:17:58.585 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Create (RentingPlatform) in 38.4546ms
-2024-11-24 18:17:58.588 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:17:58.590 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5169/Car - 400 null application/problem+json; charset=utf-8 61.1645ms
-2024-11-24 18:18:34.825 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5169/Car - application/json 164
-2024-11-24 18:18:34.829 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:18:34.830 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:18:34.832 +01:00 [INF] Route matched with {action = "Create", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:18:34.846 +01:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
-2024-11-24 18:18:34.848 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Create (RentingPlatform) in 12.8029ms
-2024-11-24 18:18:34.849 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:18:34.850 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5169/Car - 400 null application/problem+json; charset=utf-8 25.0572ms
-2024-11-24 18:18:59.859 +01:00 [INF] Application is shutting down...
-2024-11-24 18:19:59.583 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:19:59.610 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:19:59.625 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "MigrationId", "ProductVersion"
-FROM "__EFMigrationsHistory"
-ORDER BY "MigrationId";
-2024-11-24 18:19:59.637 +01:00 [INF] Applying migration '20241124171943_car_image_null'.
-2024-11-24 18:19:59.661 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20241124171943_car_image_null', '8.0.3');
-2024-11-24 18:20:09.912 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 18:20:09.930 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 18:20:09.931 +01:00 [INF] Hosting environment: Development
-2024-11-24 18:20:09.932 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 18:20:14.856 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 18:20:14.927 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 70.9745ms
-2024-11-24 18:20:15.064 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 18:20:15.176 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 112.3231ms
-2024-11-24 18:21:15.027 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5169/Car - application/json 152
-2024-11-24 18:21:15.035 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:21:15.037 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 18:21:15.039 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:21:15.056 +01:00 [INF] Route matched with {action = "Create", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:21:15.147 +01:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
-2024-11-24 18:21:15.163 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Create (RentingPlatform) in 101.5328ms
-2024-11-24 18:21:15.165 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:21:15.168 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5169/Car - 400 null application/problem+json; charset=utf-8 140.7345ms
-2024-11-24 18:21:52.684 +01:00 [INF] Application is shutting down...
-2024-11-24 18:22:03.951 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 18:22:03.969 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 18:22:03.972 +01:00 [INF] Hosting environment: Development
-2024-11-24 18:22:03.974 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 18:22:06.526 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 18:22:06.599 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 73.8136ms
-2024-11-24 18:22:06.709 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 18:22:06.824 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 114.8836ms
-2024-11-24 18:22:15.830 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5169/Car - application/json 152
-2024-11-24 18:22:15.840 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:22:15.843 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 18:22:15.845 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:22:15.863 +01:00 [INF] Route matched with {action = "Create", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:22:16.591 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-WHERE "c"."CarId" = @__get_Item_0
+2024-11-24 20:13:20.687 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:13:20.699 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:13:20.699 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:13:20.699 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:25:57.940 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:25:57.952 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:25:57.952 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:25:57.952 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:26:03.639 +01:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:8080/Users - null null
+2024-11-24 20:26:03.663 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:26:03.666 +01:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:8080/Users - 204 null null 28.0498ms
+2024-11-24 20:26:03.669 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:8080/Users - application/json; charset=utf-8 121
+2024-11-24 20:26:03.671 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:26:03.672 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-11-24 20:26:03.673 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:26:03.685 +01:00 [INF] Route matched with {action = "CreateUser", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateUser(RentingPlatform.Shared.Users) on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
+2024-11-24 20:26:04.460 +01:00 [INF] Executed DbCommand (16ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
+FROM "User" AS "u"
+WHERE "u"."UserId" = @__get_Item_0
 LIMIT 1
-2024-11-24 18:22:16.601 +01:00 [INF] Car has been retrieved: null
-2024-11-24 18:22:16.698 +01:00 [ERR] Failed executing DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 6), @p2='?' (Size = 7), @p3='?' (DbType = Binary), @p4='?' (Size = 7), @p5='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "Cars" ("CarId", "Brand", "Description", "Image", "Model", "PlateNumber")
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
-2024-11-24 18:22:16.714 +01:00 [ERR] An exception occurred in the database while saving changes for context type 'RentingPlatform.RentingPlatformContext'.
-Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Cars.Image'.
-   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
-   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-   --- End of inner exception stack trace ---
-   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Cars.Image'.
-   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
-   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-   --- End of inner exception stack trace ---
-   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-2024-11-24 18:22:16.731 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Create (RentingPlatform) in 862.0262ms
-2024-11-24 18:22:16.733 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:22:16.735 +01:00 [ERR] An unhandled exception has occurred while executing the request.
-Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
- ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'NOT NULL constraint failed: Cars.Image'.
-   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
-   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-   --- End of inner exception stack trace ---
-   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
-   at RentingPlatform.CarService.Create(Car Car) in C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform\Services\CarServices.cs:line 20
-   at RentingPlatform.Controllers.CarController.Create(Car Car) in C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform\Controllers\CarController.cs:line 25
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
---- End of stack trace from previous location ---
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
-   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
-   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
-   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
-   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
-   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
-   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
-2024-11-24 18:22:16.768 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5169/Car - 500 null text/plain; charset=utf-8 938.1434ms
-2024-11-24 18:22:31.883 +01:00 [INF] Application is shutting down...
-2024-11-24 18:22:53.592 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:22:53.619 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:22:53.634 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "MigrationId", "ProductVersion"
-FROM "__EFMigrationsHistory"
-ORDER BY "MigrationId";
-2024-11-24 18:22:53.647 +01:00 [INF] Applying migration '20241124172245_car_image_null2'.
-2024-11-24 18:22:53.679 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE TABLE "ef_temp_Cars" (
-    "CarId" TEXT NOT NULL CONSTRAINT "PK_Cars" PRIMARY KEY,
-    "Brand" TEXT NOT NULL,
-    "Description" TEXT NOT NULL,
-    "Image" BLOB NULL,
-    "Model" TEXT NOT NULL,
-    "PlateNumber" TEXT NOT NULL
-);
-2024-11-24 18:22:53.684 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "ef_temp_Cars" ("CarId", "Brand", "Description", "Image", "Model", "PlateNumber")
-SELECT "CarId", "Brand", "Description", "Image", "Model", "PlateNumber"
-FROM "Cars";
-2024-11-24 18:22:53.697 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-PRAGMA foreign_keys = 0;
-2024-11-24 18:22:53.700 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-DROP TABLE "Cars";
-2024-11-24 18:22:53.703 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-ALTER TABLE "ef_temp_Cars" RENAME TO "Cars";
-2024-11-24 18:22:53.707 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-PRAGMA foreign_keys = 1;
-2024-11-24 18:22:53.709 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20241124172245_car_image_null2', '8.0.3');
-2024-11-24 18:22:59.538 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 18:22:59.555 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 18:22:59.557 +01:00 [INF] Hosting environment: Development
-2024-11-24 18:22:59.558 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 18:23:01.896 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 18:23:01.964 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 69.5428ms
-2024-11-24 18:23:02.022 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 18:23:02.128 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 105.5844ms
-2024-11-24 18:23:09.980 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5169/Car - application/json 152
-2024-11-24 18:23:09.989 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:23:09.992 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 18:23:09.995 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:23:10.012 +01:00 [INF] Route matched with {action = "Create", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:23:10.710 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-WHERE "c"."CarId" = @__get_Item_0
-LIMIT 1
-2024-11-24 18:23:10.723 +01:00 [INF] Car has been retrieved: null
-2024-11-24 18:23:10.811 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 6), @p2='?' (Size = 7), @p3='?' (DbType = Binary), @p4='?' (Size = 7), @p5='?' (Size = 7)], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "Cars" ("CarId", "Brand", "Description", "Image", "Model", "PlateNumber")
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
-2024-11-24 18:23:10.819 +01:00 [INF] Car has been added
-2024-11-24 18:23:10.823 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
-2024-11-24 18:23:10.827 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Create (RentingPlatform) in 809.1666ms
-2024-11-24 18:23:10.828 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:23:10.834 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5169/Car - 200 0 null 854.57ms
-2024-11-24 18:23:45.093 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car - null null
-2024-11-24 18:23:45.097 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:23:45.101 +01:00 [INF] Route matched with {action = "GetAll", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Car]]] GetAll() on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:23:45.107 +01:00 [INF] Every car has been fetched
-2024-11-24 18:23:45.125 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-2024-11-24 18:23:45.136 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Car, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
-2024-11-24 18:23:45.141 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.GetAll (RentingPlatform) in 36.736ms
-2024-11-24 18:23:45.144 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:23:45.147 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car - 200 null application/json; charset=utf-8 54.2756ms
-2024-11-24 18:24:14.953 +01:00 [INF] Application is shutting down...
-2024-11-24 18:24:18.732 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 18:24:18.751 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 18:24:18.753 +01:00 [INF] Hosting environment: Development
-2024-11-24 18:24:18.755 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 18:26:00.246 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - null null
-2024-11-24 18:26:00.281 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 18:26:00.285 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Get (RentingPlatform)'
-2024-11-24 18:26:00.303 +01:00 [INF] Route matched with {action = "Get", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RentingPlatform.Shared.Car]] Get(System.Guid) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:26:00.979 +01:00 [INF] Executed DbCommand (9ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-WHERE "c"."CarId" = @__get_Item_0
-LIMIT 1
-2024-11-24 18:26:01.045 +01:00 [INF] Car has been retrieved: {"LazyLoader":{"$type":"LazyLoader"},"CarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","Brand":"toyota","Model":"corolla","PlateNumber":"fefe-11","Description":"jo auto","Image":null,"$type":"CarProxy"}
-2024-11-24 18:26:01.062 +01:00 [INF] Executing OkObjectResult, writing value of type 'Castle.Proxies.CarProxy'.
-2024-11-24 18:26:01.084 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Get (RentingPlatform) in 775.4892ms
-2024-11-24 18:26:01.088 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Get (RentingPlatform)'
-2024-11-24 18:26:01.098 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 200 null application/json; charset=utf-8 852.894ms
-2024-11-24 18:27:13.392 +01:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - application/json 187
-2024-11-24 18:27:13.399 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:27:13.401 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:27:13.407 +01:00 [INF] Route matched with {action = "Update", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(System.Guid, RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:27:13.448 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-WHERE "c"."CarId" = @__get_Item_0
-LIMIT 1
-2024-11-24 18:27:13.455 +01:00 [INF] Car has been retrieved: {"LazyLoader":{"$type":"LazyLoader"},"CarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","Brand":"toyota","Model":"corolla","PlateNumber":"fefe-11","Description":"jo auto","Image":null,"$type":"CarProxy"}
-2024-11-24 18:27:13.463 +01:00 [INF] Car has been retrieved: {"LazyLoader":{"$type":"LazyLoader"},"CarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","Brand":"toyota","Model":"corolla","PlateNumber":"fefe-11","Description":"jo auto","Image":null,"$type":"CarProxy"}
-2024-11-24 18:27:13.516 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p2='?' (DbType = Guid), @p0='?' (Size = 6), @p1='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
-UPDATE "Cars" SET "Brand" = @p0, "Description" = @p1
-WHERE "CarId" = @p2
-RETURNING 1;
-2024-11-24 18:27:13.534 +01:00 [INF] Castle.Proxies.CarProxy has been updated
-2024-11-24 18:27:13.537 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
-2024-11-24 18:27:13.539 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Update (RentingPlatform) in 128.9557ms
-2024-11-24 18:27:13.541 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:27:13.543 +01:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 200 0 null 151.0955ms
-2024-11-24 18:27:29.723 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - null null
-2024-11-24 18:27:29.728 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Get (RentingPlatform)'
-2024-11-24 18:27:29.730 +01:00 [INF] Route matched with {action = "Get", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[RentingPlatform.Shared.Car]] Get(System.Guid) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:27:29.772 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-WHERE "c"."CarId" = @__get_Item_0
-LIMIT 1
-2024-11-24 18:27:29.777 +01:00 [INF] Car has been retrieved: {"LazyLoader":{"$type":"LazyLoader"},"CarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","Brand":"nissan","Model":"corolla","PlateNumber":"fefe-11","Description":"jo autos","Image":null,"$type":"CarProxy"}
-2024-11-24 18:27:29.786 +01:00 [INF] Executing OkObjectResult, writing value of type 'Castle.Proxies.CarProxy'.
-2024-11-24 18:27:29.789 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Get (RentingPlatform) in 56.5203ms
-2024-11-24 18:27:29.790 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Get (RentingPlatform)'
-2024-11-24 18:27:29.793 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 200 null application/json; charset=utf-8 69.9305ms
-2024-11-24 18:28:47.435 +01:00 [INF] Request starting HTTP/1.1 DELETE http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - null null
-2024-11-24 18:28:47.439 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:28:47.440 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Delete (RentingPlatform)'
-2024-11-24 18:28:47.444 +01:00 [INF] Route matched with {action = "Delete", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:28:47.450 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-WHERE "c"."CarId" = @__get_Item_0
-LIMIT 1
-2024-11-24 18:28:47.454 +01:00 [INF] Car has been retrieved: {"LazyLoader":{"$type":"LazyLoader"},"CarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","Brand":"nissan","Model":"corolla","PlateNumber":"fefe-11","Description":"jo autos","Image":null,"$type":"CarProxy"}
-2024-11-24 18:28:47.462 +01:00 [INF] Car has been retrieved: {"LazyLoader":{"$type":"LazyLoader"},"CarId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","Brand":"nissan","Model":"corolla","PlateNumber":"fefe-11","Description":"jo autos","Image":null,"$type":"CarProxy"}
-2024-11-24 18:28:47.479 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-DELETE FROM "Cars"
-WHERE "CarId" = @p0
-RETURNING 1;
-2024-11-24 18:28:47.486 +01:00 [INF] Car has been removed
-2024-11-24 18:28:47.488 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
-2024-11-24 18:28:47.489 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Delete (RentingPlatform) in 41.1297ms
-2024-11-24 18:28:47.491 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Delete (RentingPlatform)'
-2024-11-24 18:28:47.492 +01:00 [INF] Request finished HTTP/1.1 DELETE http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 200 0 null 57.6233ms
-2024-11-24 18:28:55.820 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car - null null
-2024-11-24 18:28:55.824 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:28:55.829 +01:00 [INF] Route matched with {action = "GetAll", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Car]]] GetAll() on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:28:55.833 +01:00 [INF] Every car has been fetched
-2024-11-24 18:28:55.841 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."PlateNumber"
-FROM "Cars" AS "c"
-2024-11-24 18:28:55.844 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Car, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
-2024-11-24 18:28:55.849 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.GetAll (RentingPlatform) in 17.2849ms
-2024-11-24 18:28:55.851 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:28:55.852 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car - 200 null application/json; charset=utf-8 32.5432ms
-2024-11-24 18:35:04.273 +01:00 [INF] Application is shutting down...
-2024-11-24 18:38:55.738 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:38:55.765 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT COUNT(*) FROM "sqlite_master" WHERE "name" = '__EFMigrationsHistory' AND "type" = 'table';
-2024-11-24 18:38:55.779 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "MigrationId", "ProductVersion"
-FROM "__EFMigrationsHistory"
-ORDER BY "MigrationId";
-2024-11-24 18:38:55.794 +01:00 [INF] Applying migration '20241124173844_car_feature'.
-2024-11-24 18:38:55.838 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-ALTER TABLE "Cars" ADD "OwnerId" TEXT NOT NULL DEFAULT '00000000-0000-0000-0000-000000000000';
-2024-11-24 18:38:55.842 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE INDEX "IX_Cars_OwnerId" ON "Cars" ("OwnerId");
-2024-11-24 18:38:55.844 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE TABLE "ef_temp_Cars" (
-    "CarId" TEXT NOT NULL CONSTRAINT "PK_Cars" PRIMARY KEY,
-    "Brand" TEXT NOT NULL,
-    "Description" TEXT NOT NULL,
-    "Image" BLOB NULL,
-    "Model" TEXT NOT NULL,
-    "OwnerId" TEXT NOT NULL,
-    "PlateNumber" TEXT NOT NULL,
-    CONSTRAINT "FK_Cars_User_OwnerId" FOREIGN KEY ("OwnerId") REFERENCES "User" ("UserId") ON DELETE CASCADE
-);
-2024-11-24 18:38:55.848 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "ef_temp_Cars" ("CarId", "Brand", "Description", "Image", "Model", "OwnerId", "PlateNumber")
-SELECT "CarId", "Brand", "Description", "Image", "Model", "OwnerId", "PlateNumber"
-FROM "Cars";
-2024-11-24 18:38:55.856 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-PRAGMA foreign_keys = 0;
-2024-11-24 18:38:55.858 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-DROP TABLE "Cars";
-2024-11-24 18:38:55.861 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-ALTER TABLE "ef_temp_Cars" RENAME TO "Cars";
-2024-11-24 18:38:55.865 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-PRAGMA foreign_keys = 1;
-2024-11-24 18:38:55.867 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-CREATE INDEX "IX_Cars_OwnerId" ON "Cars" ("OwnerId");
-2024-11-24 18:38:55.869 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20241124173844_car_feature', '8.0.3');
-2024-11-24 18:39:02.610 +01:00 [INF] Now listening on: http://localhost:5169
-2024-11-24 18:39:02.629 +01:00 [INF] Application started. Press Ctrl+C to shut down.
-2024-11-24 18:39:02.631 +01:00 [INF] Hosting environment: Development
-2024-11-24 18:39:02.632 +01:00 [INF] Content root path: C:\Users\angya\OneDrive\Asztali gép\renting_platform\RentingPlatform
-2024-11-24 18:39:07.300 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 18:39:07.371 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 71.7367ms
-2024-11-24 18:39:07.512 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 18:39:07.626 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 114.0119ms
-2024-11-24 18:39:18.941 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/index.html - null null
-2024-11-24 18:39:18.947 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/index.html - 200 null text/html;charset=utf-8 5.5253ms
-2024-11-24 18:39:19.027 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - null null
-2024-11-24 18:39:19.037 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.7384ms
-2024-11-24 18:41:47.718 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:5169/Car - application/json 242
-2024-11-24 18:41:47.724 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:41:47.727 +01:00 [WRN] Failed to determine the https port for redirect.
-2024-11-24 18:41:47.729 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:41:47.747 +01:00 [INF] Route matched with {action = "Create", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Create(RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:41:48.469 +01:00 [INF] Executed DbCommand (8ms) [Parameters=[@__id_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."OwnerId", "c"."PlateNumber", "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
-FROM "Cars" AS "c"
-INNER JOIN "User" AS "u" ON "c"."OwnerId" = "u"."UserId"
-WHERE "c"."CarId" = @__id_0
-LIMIT 1
-2024-11-24 18:41:48.481 +01:00 [INF] Car has been retrieved: null
-2024-11-24 18:41:48.620 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 17), @p2='?' (Size = 9), @p3='?' (Size = 9)], CommandType='"Text"', CommandTimeout='30']
+2024-11-24 20:26:04.467 +01:00 [INF] User has been retrieved: null
+2024-11-24 20:26:04.548 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 15), @p2='?' (Size = 14), @p3='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
 INSERT INTO "User" ("UserId", "Email", "Name", "Password")
 VALUES (@p0, @p1, @p2, @p3);
-2024-11-24 18:41:48.627 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 4), @p2='?' (Size = 2), @p3='?' (DbType = Binary), @p4='?' (Size = 2), @p5='?' (DbType = Guid), @p6='?' (Size = 4)], CommandType='"Text"', CommandTimeout='30']
-INSERT INTO "Cars" ("CarId", "Brand", "Description", "Image", "Model", "OwnerId", "PlateNumber")
-VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
-2024-11-24 18:41:48.640 +01:00 [INF] Car has been added
-2024-11-24 18:41:48.644 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
-2024-11-24 18:41:48.647 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Create (RentingPlatform) in 894.7423ms
-2024-11-24 18:41:48.649 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Create (RentingPlatform)'
-2024-11-24 18:41:48.656 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:5169/Car - 200 0 null 937.8739ms
-2024-11-24 18:42:00.406 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car - null null
-2024-11-24 18:42:00.410 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:42:00.415 +01:00 [INF] Route matched with {action = "GetAll", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Car]]] GetAll() on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:42:00.422 +01:00 [INF] Every car has been fetched
-2024-11-24 18:42:00.439 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."OwnerId", "c"."PlateNumber"
-FROM "Cars" AS "c"
-2024-11-24 18:42:00.452 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Car, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
-2024-11-24 18:42:00.476 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+2024-11-24 20:26:04.553 +01:00 [INF] User has been added
+2024-11-24 20:26:04.555 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2024-11-24 20:26:04.558 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform) in 870.0647ms
+2024-11-24 20:26:04.558 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:26:04.563 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:8080/Users - 200 0 null 893.9159ms
+2024-11-24 20:26:14.094 +01:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:8080/Users - null null
+2024-11-24 20:26:14.095 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:26:14.095 +01:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:8080/Users - 204 null null 1.622ms
+2024-11-24 20:26:14.097 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:8080/Users - application/json; charset=utf-8 121
+2024-11-24 20:26:14.097 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:26:14.097 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:26:14.098 +01:00 [INF] Route matched with {action = "CreateUser", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateUser(RentingPlatform.Shared.Users) on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
+2024-11-24 20:26:14.109 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
 SELECT "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
 FROM "User" AS "u"
 WHERE "u"."UserId" = @__get_Item_0
 LIMIT 1
-2024-11-24 18:42:00.484 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.GetAll (RentingPlatform) in 64.3264ms
-2024-11-24 18:42:00.487 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:42:00.489 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car - 200 null application/json; charset=utf-8 82.6895ms
-2024-11-24 18:42:06.855 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:5169/Car - null null
-2024-11-24 18:42:06.859 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:42:06.860 +01:00 [INF] Route matched with {action = "GetAll", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Car]]] GetAll() on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:42:06.865 +01:00 [INF] Every car has been fetched
-2024-11-24 18:42:06.904 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
-SELECT "c"."CarId", "c"."Brand", "c"."Description", "c"."Image", "c"."Model", "c"."OwnerId", "c"."PlateNumber"
-FROM "Cars" AS "c"
-2024-11-24 18:42:06.908 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Car, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
-2024-11-24 18:42:06.912 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+2024-11-24 20:26:14.109 +01:00 [INF] User has been retrieved: null
+2024-11-24 20:26:14.115 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 15), @p2='?' (Size = 14), @p3='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "User" ("UserId", "Email", "Name", "Password")
+VALUES (@p0, @p1, @p2, @p3);
+2024-11-24 20:26:14.116 +01:00 [INF] User has been added
+2024-11-24 20:26:14.116 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2024-11-24 20:26:14.116 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform) in 18.4339ms
+2024-11-24 20:26:14.116 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:26:14.117 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:8080/Users - 200 0 null 19.9493ms
+2024-11-24 20:27:26.813 +01:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:8080/Users - null null
+2024-11-24 20:27:26.813 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:27:26.813 +01:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:8080/Users - 204 null null 0.538ms
+2024-11-24 20:27:26.814 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:8080/Users - application/json; charset=utf-8 120
+2024-11-24 20:27:26.815 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:27:26.815 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:27:26.815 +01:00 [INF] Route matched with {action = "CreateUser", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateUser(RentingPlatform.Shared.Users) on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
+2024-11-24 20:27:26.859 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
 SELECT "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
 FROM "User" AS "u"
 WHERE "u"."UserId" = @__get_Item_0
 LIMIT 1
-2024-11-24 18:42:06.916 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.GetAll (RentingPlatform) in 52.9662ms
-2024-11-24 18:42:06.919 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.GetAll (RentingPlatform)'
-2024-11-24 18:42:06.920 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:5169/Car - 200 null application/json; charset=utf-8 65.5057ms
-2024-11-24 18:42:52.943 +01:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - application/json 174
-2024-11-24 18:42:52.947 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:42:52.949 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:42:52.956 +01:00 [INF] Route matched with {action = "Update", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(System.Guid, RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:42:52.964 +01:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
-2024-11-24 18:42:52.976 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Update (RentingPlatform) in 16.9279ms
-2024-11-24 18:42:52.977 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:42:52.979 +01:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 400 null application/problem+json; charset=utf-8 35.3621ms
-2024-11-24 18:43:07.635 +01:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - application/json 153
-2024-11-24 18:43:07.639 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:43:07.640 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:43:07.642 +01:00 [INF] Route matched with {action = "Update", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(System.Guid, RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:43:07.646 +01:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
-2024-11-24 18:43:07.647 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Update (RentingPlatform) in 3.2239ms
-2024-11-24 18:43:07.649 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:43:07.651 +01:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 400 null application/problem+json; charset=utf-8 16.4995ms
-2024-11-24 18:43:16.480 +01:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - application/json 149
-2024-11-24 18:43:16.483 +01:00 [INF] CORS policy execution successful.
-2024-11-24 18:43:16.485 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:43:16.487 +01:00 [INF] Route matched with {action = "Update", controller = "Car"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Update(System.Guid, RentingPlatform.Shared.Car) on controller RentingPlatform.Controllers.CarController (RentingPlatform).
-2024-11-24 18:43:16.491 +01:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
-2024-11-24 18:43:16.493 +01:00 [INF] Executed action RentingPlatform.Controllers.CarController.Update (RentingPlatform) in 3.0038ms
-2024-11-24 18:43:16.495 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.CarController.Update (RentingPlatform)'
-2024-11-24 18:43:16.497 +01:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5169/Car/3fa85f64-5717-4562-b3fc-2c963f66afa6 - 400 null application/problem+json; charset=utf-8 17.1274ms
-2024-11-24 18:43:52.484 +01:00 [INF] Application is shutting down...
+2024-11-24 20:27:26.859 +01:00 [INF] User has been retrieved: null
+2024-11-24 20:27:26.865 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 14), @p2='?' (Size = 14), @p3='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "User" ("UserId", "Email", "Name", "Password")
+VALUES (@p0, @p1, @p2, @p3);
+2024-11-24 20:27:26.865 +01:00 [INF] User has been added
+2024-11-24 20:27:26.865 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2024-11-24 20:27:26.865 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform) in 50.38ms
+2024-11-24 20:27:26.865 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:27:26.866 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:8080/Users - 200 0 null 51.2123ms
+2024-11-24 20:31:43.820 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:31:43.831 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:31:43.831 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:31:43.831 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:33:31.280 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:33:31.291 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:33:31.291 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:33:31.291 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:33:33.950 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/ - null null
+2024-11-24 20:33:33.969 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-11-24 20:33:33.972 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/ - 404 0 null 23.8192ms
+2024-11-24 20:33:33.978 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:8080/, Response status code: 404
+2024-11-24 20:33:40.726 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/ - null null
+2024-11-24 20:33:40.728 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/ - 404 0 null 1.4103ms
+2024-11-24 20:33:40.728 +01:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:8080/, Response status code: 404
+2024-11-24 20:34:04.926 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:34:04.938 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:34:04.938 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:34:04.938 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:34:05.036 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/swagger/index.html - null null
+2024-11-24 20:34:05.098 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/swagger/index.html - 200 null text/html;charset=utf-8 63.8236ms
+2024-11-24 20:34:05.200 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/swagger/v1/swagger.json - null null
+2024-11-24 20:34:05.290 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 90.0754ms
+2024-11-24 20:34:14.881 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/Users - null null
+2024-11-24 20:34:14.885 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-11-24 20:34:14.886 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform)'
+2024-11-24 20:34:14.896 +01:00 [INF] Route matched with {action = "GetAllUsers", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Users]]] GetAllUsers() on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
+2024-11-24 20:34:14.977 +01:00 [INF] Every user has been fetched
+2024-11-24 20:34:15.459 +01:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
+FROM "User" AS "u"
+2024-11-24 20:34:15.501 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Users, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-11-24 20:34:15.509 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform) in 610.2606ms
+2024-11-24 20:34:15.509 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform)'
+2024-11-24 20:34:15.516 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/Users - 200 null application/json; charset=utf-8 634.8769ms
+2024-11-24 20:34:49.009 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:34:49.022 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:34:49.022 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:34:49.022 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:34:49.130 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/swagger/index.html - null null
+2024-11-24 20:34:49.193 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/swagger/index.html - 200 null text/html;charset=utf-8 63.6727ms
+2024-11-24 20:34:49.302 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/swagger/v1/swagger.json - null null
+2024-11-24 20:34:49.417 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 115.4095ms
+2024-11-24 20:36:02.368 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:36:02.378 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:36:02.378 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:36:02.379 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:38:25.934 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:38:25.944 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:38:25.945 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:38:25.945 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:52:44.511 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 20:52:44.522 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 20:52:44.522 +01:00 [INF] Hosting environment: Development
+2024-11-24 20:52:44.522 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 20:53:36.249 +01:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:8080/Users - null null
+2024-11-24 20:53:36.270 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:53:36.274 +01:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:8080/Users - 204 null null 26.6006ms
+2024-11-24 20:53:36.278 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost:8080/Users - application/json; charset=utf-8 118
+2024-11-24 20:53:36.280 +01:00 [INF] CORS policy execution successful.
+2024-11-24 20:53:36.281 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-11-24 20:53:36.282 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:53:36.296 +01:00 [INF] Route matched with {action = "CreateUser", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] CreateUser(RentingPlatform.Shared.Users) on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
+2024-11-24 20:53:36.942 +01:00 [INF] Executed DbCommand (13ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
+FROM "User" AS "u"
+WHERE "u"."UserId" = @__get_Item_0
+LIMIT 1
+2024-11-24 20:53:36.950 +01:00 [INF] User has been retrieved: null
+2024-11-24 20:53:37.055 +01:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (Size = 18), @p2='?' (Size = 8), @p3='?' (Size = 8)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "User" ("UserId", "Email", "Name", "Password")
+VALUES (@p0, @p1, @p2, @p3);
+2024-11-24 20:53:37.060 +01:00 [INF] User has been added
+2024-11-24 20:53:37.062 +01:00 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2024-11-24 20:53:37.064 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform) in 765.8118ms
+2024-11-24 20:53:37.064 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.CreateUser (RentingPlatform)'
+2024-11-24 20:53:37.070 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost:8080/Users - 200 0 null 791.7479ms
+2024-11-24 21:35:54.999 +01:00 [INF] Now listening on: http://localhost:8080
+2024-11-24 21:35:55.010 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-11-24 21:35:55.010 +01:00 [INF] Hosting environment: Development
+2024-11-24 21:35:55.010 +01:00 [INF] Content root path: C:\Users\kadar\Desktop\rentingPlatform\RentingPlatform
+2024-11-24 21:36:25.326 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost:8080/Users - null null
+2024-11-24 21:36:25.346 +01:00 [INF] CORS policy execution successful.
+2024-11-24 21:36:25.347 +01:00 [WRN] Failed to determine the https port for redirect.
+2024-11-24 21:36:25.349 +01:00 [INF] Executing endpoint 'RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform)'
+2024-11-24 21:36:25.358 +01:00 [INF] Route matched with {action = "GetAllUsers", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[RentingPlatform.Shared.Users]]] GetAllUsers() on controller RentingPlatform.Controllers.UsersController (RentingPlatform).
+2024-11-24 21:36:25.415 +01:00 [INF] Every user has been fetched
+2024-11-24 21:36:25.854 +01:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "u"."UserId", "u"."Email", "u"."Name", "u"."Password"
+FROM "User" AS "u"
+2024-11-24 21:36:25.892 +01:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RentingPlatform.Shared.Users, RentingPlatform.Shared, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2024-11-24 21:36:25.907 +01:00 [INF] Executed action RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform) in 545.9823ms
+2024-11-24 21:36:25.908 +01:00 [INF] Executed endpoint 'RentingPlatform.Controllers.UsersController.GetAllUsers (RentingPlatform)'
+2024-11-24 21:36:25.923 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost:8080/Users - 200 null application/json; charset=utf-8 597.1065ms

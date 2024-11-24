@@ -7,16 +7,24 @@
 
 <h3>Register</h3>
 
-<RegisterForm Users="registerUser" OnValidSubmit="CreateUser" ButtonText="Register" ErrorMessage="errorMessage"/>
+<RegisterForm RegisterUser="newRegisteredUser" OnValidSubmit="CreateUser" ButtonText="Register" ErrorMessage="@errorMessage"/>
 
 @code
 {
+    private RegisterUser newRegisteredUser = new();
     private Users newUser = new();
-    private string errorMessage { get; set; }
+    private string errorMessage;
 
     private async Task CreateUser()
     {
         errorMessage = string.Empty;
+
+        newUser = new Users
+        {
+            Name = newRegisteredUser.Name,
+            Email = newRegisteredUser.Email,
+            Password = newRegisteredUser.Password
+        };
 
         try
         {
@@ -27,15 +35,11 @@
             errorMessage = $"An unexpected error occurred: {ex.Message}";
         }
 
-        if(errorMessage is null)
+        if(errorMessage == null && errorMessage == "")
         {
             errorMessage = "Registration successful! Redirecting to login page...";
             await Task.Delay(1000);
             NavigationManager.NavigateTo("/");
-        }
-        else
-        {
-            errorMessage = "An error occurred while registering. Please try again.";
         }
     }
 }

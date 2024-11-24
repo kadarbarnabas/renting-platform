@@ -3,21 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingPlatform", "RentingPlatform\RentingPlatform.csproj", "{04BAAAD8-B394-4F50-9282-61C23B0272E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingPlatform", "RentingPlatform\RentingPlatform.csproj", "{04BAAAD8-B394-4F50-9282-61C23B0272E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingPlatform.UI", "RentingPlatform.UI\RentingPlatform.UI.csproj", "{EF454D90-B548-4A2A-9B45-E9D432F7D529}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingPlatform.UI", "RentingPlatform.UI\RentingPlatform.UI.csproj", "{EF454D90-B548-4A2A-9B45-E9D432F7D529}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingPlatform.Shared", "RentingPlatform.Shared\RentingPlatform.Shared.csproj", "{4877F5C5-69DC-4759-B3D8-B75F77AA8E5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingPlatform.Shared", "RentingPlatform.Shared\RentingPlatform.Shared.csproj", "{4877F5C5-69DC-4759-B3D8-B75F77AA8E5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingPlatform.Test", "RentingPlatform.Test\RentingPlatform.Test.csproj", "{1A81B4FC-EB1F-4899-A238-E4ED2695380F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingPlatform.Test", "RentingPlatform.Test\RentingPlatform.Test.csproj", "{1A81B4FC-EB1F-4899-A238-E4ED2695380F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{04BAAAD8-B394-4F50-9282-61C23B0272E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -36,5 +33,8 @@ Global
 		{1A81B4FC-EB1F-4899-A238-E4ED2695380F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A81B4FC-EB1F-4899-A238-E4ED2695380F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A81B4FC-EB1F-4899-A238-E4ED2695380F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -2,12 +2,12 @@
 @using RentingPlatform.Shared
 @using RentingPlatform.UI.Services
 @using RentingPlatform.UI.Components
-@inject ILoginService LoginService
+@inject IUserService UserService
 @inject NavigationManager NavigationManager
 
 <h3>Login</h3>
 
-<LoginForm Users="loginUser" OnValidSubmit="HandleLogin" ButtonText="Login" ErrorMessage="@errorMessage"/>
+<LoginForm Users="loginUser" OnValidSubmit="LoginUser" ButtonText="Login" ErrorMessage="@errorMessage"/>
 
 <p>
     Don't have an account? <a href="/register">Register here...</a>.
@@ -18,23 +18,19 @@
     private Users loginUser = new();
     private string errorMessage;
 
-    private async Task HandleLogin()
+    private async Task LoginUser()
     {
-        try
-        {      
-            var result = await LoginService.LoginUserAsync(loginUser);
-            if (result == "Login successful.")
+        var users = await UserService.GetAllUsersAsync();
+        foreach (var user in users)
+        {
+            if (user.Email == loginUser.Email && user.Password == loginUser.Password) 
             {
+                errorMessage = "Login successful.";
+                await Task.Delay(1000);
                 NavigationManager.NavigateTo("/home");
             }
-            else
-            {
-                errorMessage = result;
-            }
         }
-        catch (Exception ex)
-        {
-            errorMessage = $"An unexpected error occurred: {ex.Message}";
-        }
+
+        errorMessage = "Invalid credentials.";
     }
 }

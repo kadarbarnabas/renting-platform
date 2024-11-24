@@ -1,30 +1,30 @@
 @using RentingPlatform.Shared
-<EditForm Model="User" OnValidSubmit="() => OnValidSubmit()" Validate="ValidatePasswords">
+<EditForm Model="RegisterUser" OnValidSubmit="() => OnValidSubmit()">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="mb-3">
         <label class="form-label">Name</label>
-        <InputText @bind-Value="User.Name" class="form-control" />
-        <ValidationMessage For="() => User.Name" />
+        <InputText @bind-Value="RegisterUser.Name" class="form-control" />
+        <ValidationMessage For="() => RegisterUser.Name" />
     </div>
 
     <div class="mb-3">
         <label class="form-label">Email</label>
-        <InputText @bind-Value="User.Email" class="form-control" />
-        <ValidationMessage For="() => User.Email" />
+        <InputText @bind-Value="RegisterUser.Email" class="form-control" />
+        <ValidationMessage For="() => RegisterUser.Email" />
     </div>
 
     <div class="mb-3">
         <label class="form-label">Password</label>
-        <InputText @bind-Value="User.Password" type="password" class="form-control" />
-        <ValidationMessage For="() => User.Password" />
+        <InputText @bind-Value="RegisterUser.Password" type="password" class="form-control" />
+        <ValidationMessage For="() => RegisterUser.Password" />
     </div>
 
     <div class="mb-3">
         <label class="form-label">Confirm Password</label>
-        <InputText @bind-Value="ConfirmPassword" type="password" class="form-control" />
-        <ValidationMessage For="() => ConfirmPassword" />
+        <InputText @bind-Value="RegisterUser.ConfirmPassword" type="password" class="form-control" />
+        <ValidationMessage For="() => RegisterUser.ConfirmPassword" />
     </div>
 
     <button class="btn btn-primary" type="submit">@ButtonText</button>
@@ -33,24 +33,16 @@
 
 @code {
     [Parameter]
-    public Users User { get; set; } = new();
+    public RegisterUser RegisterUser { get; set; } = new();
 
     [Parameter]
     public Func<Task> OnValidSubmit { get; set; }
 
     [Parameter]
-    public string ButtonText { get; set; } = "Register";
+    public string ButtonText { get; set; }
 
     [Parameter]
     public string ErrorMessage { get; set; }
 
     private string ConfirmPassword { get; set; } = string.Empty;
-
-    private IEnumerable<string> ValidatePasswords()
-    {
-        if (User.Password != ConfirmPassword)
-        {
-            yield return "Passwords do not match.";
-        }
-    }
 }
