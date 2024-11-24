@@ -1,0 +1,147 @@
+@page "/admin"
+@using RentingPlatform.Shared
+@inject NavigationManager NavigationManager
+
+<div style="margin-bottom: 20px;">
+    <input type="text" placeholder="Search..." @bind="SearchTerm" @onkeypress="OnKeyPress" style="padding: 8px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;" />
+</div>
+
+<div style="margin-bottom: 20px;">
+    <button @onclick="SortByName" style="padding: 8px 12px; margin-right: 10px; border-radius: 5px; border: 1px solid #ccc;">Sort by Name</button>
+    <button @onclick="SortByEmail" style="padding: 8px 12px; border-radius: 5px; border: 1px solid #ccc;">Sort by Email</button>
+</div>
+
+<div style="max-height: 80vh; overflow-y: auto; border: 2px solid #ccc; border-radius: 10px; padding: 10px; background-color: #f9f9f9;">
+    @foreach (var user in FilteredUsers)
+    {
+        <div style="display: flex; justify-content: space-between; padding: 10px; border-radius: 8px; margin-bottom: 10px; background-color: #ffffff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); cursor: pointer; position: relative;">
+            <span style="font-size: 16px; font-weight: bold;">@user.Name</span>
+            <span style="font-size: 16px; font-weight: bold;">@user.Email</span>
+
+            <!-- Options button (three dots icon) -->
+            <button @onclick="(e) => OpenOptionsModal(user, e)" style="background: none; border: none; color: #007bff; cursor: pointer;">
+                ⋮
+            </button>
+
+            <!-- Modal -->
+            @if (SelectedUser == user && ShowModal)
+            {
+                <div class="options-modal" style="position: absolute; top: 0; right: 35px; padding: 10px; border-radius: 8px; background-color: white; box-shadow: 0 1px 5px rgba(0,0,0,0.2); z-index: 100;">
+                    <button @onclick="() => EditUser(user)" style="padding: 8px 12px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #f0ad4e; color: white; width: 100%;">Edit</button>
+                    <button @onclick="() => DeleteUser(user)" style="padding: 8px 12px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #d9534f; color: white; width: 100%;">Delete</button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (ShowModal)
+{
+    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5);" @onclick="CloseModalOnOutsideClick">
+    </div>
+}
+
+@code {
+    // Sample data - replace this with actual code to fetch users from database
+    private List<Users> Users = new List<Users>
+    {
+        new Users { Name = "John Doe", Email = "john@example.com"},
+        new Users { Name = "Jane Smith", Email = "jane@example.com"},
+        new Users { Name = "Bat Bond", Email = "bat@example.com"},
+        new Users { Name = "Robin Bond", Email = "robin@example.com"},
+        new Users { Name = "James Scherlock", Email = "Scherlock@example.com"},
+        new Users { Name = "Watson Bond", Email = "watson@example.com"},
+        new Users { Name = "Goku Bond", Email = "goku@example.com"},
+        new Users { Name = "James Test", Email = "test1@example.com"},
+        new Users { Name = "James Bond", Email = "james@example.com"},
+        new Users { Name = "Bruce Wayne", Email = "bruce@wayne.com"},
+        new Users { Name = "Clark Kent", Email = "clark@dailyplanet.com"},
+        new Users { Name = "Peter Parker", Email = "peter@dailybugle.com"},
+        new Users { Name = "Tony Stark", Email = "tony@starkindustries.com"},
+        new Users { Name = "Steve Rogers", Email = "steve@avengers.com"},
+        new Users { Name = "Natasha Romanoff", Email = "natasha@shield.com"},
+        new Users { Name = "Thor Odinson", Email = "thor@asgard.com"},
+        new Users { Name = "Wanda Maximoff", Email = "wanda@avengers.com"},
+        new Users { Name = "Bruce Banner", Email = "bruce@avengers.com"},
+        new Users { Name = "Doctor Strange", Email = "doctor@strange.com"},
+        new Users { Name = "Black Panther", Email = "tchalla@wakanda.com"},
+        new Users { Name = "Ant-Man", Email = "scott@antman.com"},
+        new Users { Name = "Hawkeye", Email = "clint@avengers.com"},
+        new Users { Name = "Rocket Raccoon", Email = "rocket@guardians.com"},
+        new Users { Name = "Star-Lord", Email = "star-lord@guardians.com"},
+        new Users { Name = "Gamora", Email = "gamora@guardians.com"},
+    };
+
+    private string SearchTerm { get; set; } = string.Empty;
+    private List<Users> FilteredUsers { get; set; }
+    private bool ShowModal { get; set; } = false;
+    private Users SelectedUser { get; set; }
+
+    protected override void OnInitialized()
+    {
+        FilteredUsers = Users;
+    }
+
+    // This method is triggered on key press event, but only if Enter key is pressed
+    private void OnKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            if (SearchTerm.Length >= 3 || string.IsNullOrEmpty(SearchTerm))
+            {
+                FilteredUsers = Users
+                    .Where(user => user.Name.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                   user.Email.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+        }
+    }
+
+    private void SortByName()
+    {
+        Users = Users.OrderBy(user => user.Name).ToList();
+        OnKeyPress(new KeyboardEventArgs()); // Reapply the search after sorting
+    }
+
+    private void SortByEmail()
+    {
+        Users = Users.OrderBy(user => user.Email).ToList();
+        OnKeyPress(new KeyboardEventArgs()); // Reapply the search after sorting
+    }
+
+    private void OpenOptionsModal(Users user, MouseEventArgs e)
+    {
+        // Check if modal is already open, if yes, close it, otherwise open it
+        if (ShowModal && SelectedUser == user)
+        {
+            CloseModal();
+        }
+        else
+        {
+            SelectedUser = user;
+            ShowModal = true;
+        }
+    }
+    private void CloseModal()
+    {
+        ShowModal = false;
+    }
+    private void CloseModalOnOutsideClick(MouseEventArgs e)
+    {
+        // Close modal if clicked outside
+        if (ShowModal)
+        {
+            ShowModal = false;
+        }
+    }
+
+    private async Task EditUser(Users user)
+    {
+        // Call the API to edit the user
+    }
+
+    private async Task DeleteUser(Users user)
+    {
+        // Call the API to delete the user
+    }
+}
