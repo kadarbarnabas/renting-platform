@@ -11,7 +11,7 @@ namespace RentingPlatform.Shared
         public Guid AirbnbId { get; set; }
 
         [Required]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public string Description { get; set; } 
