@@ -32,7 +32,7 @@ namespace RentingPlatform.Shared
         public Guid OwnerId { get; set; } 
 
         [ForeignKey(nameof(OwnerId))]
-        public Users Owner { get; set; } 
+        public virtual Users Owner { get; set; } 
 
         public string ImageUrl { get; set; } 
 

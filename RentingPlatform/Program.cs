@@ -23,6 +23,8 @@ builder.Services.AddDbContext<RentingPlatformContext>(options =>
 
 builder.Services.AddScoped<IUsersService, UsersService>(); //TODO Ide nektek is fell kell sorolni majd a dolgokat értelem szerűen
 
+builder.Services.AddScoped<ICarService, CarService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
