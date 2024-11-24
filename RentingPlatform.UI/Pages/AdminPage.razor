@@ -18,12 +18,10 @@
             <span style="font-size: 16px; font-weight: bold;">@user.Name</span>
             <span style="font-size: 16px; font-weight: bold;">@user.Email</span>
 
-            <!-- Options button (three dots icon) -->
             <button @onclick="(e) => OpenOptionsModal(user, e)" style="background: none; border: none; color: #007bff; cursor: pointer;">
                 ⋮
             </button>
 
-            <!-- Modal -->
             @if (SelectedUser == user && ShowModal)
             {
                 <div class="options-modal" style="position: absolute; top: 0; right: 35px; padding: 10px; border-radius: 8px; background-color: white; box-shadow: 0 1px 5px rgba(0,0,0,0.2); z-index: 100;">
@@ -42,7 +40,6 @@
 }
 
 @code {
-    // Sample data - replace this with actual code to fetch users from database
     private List<Users> Users = new List<Users>
     {
         new Users { Name = "John Doe", Email = "john@example.com"},
@@ -81,8 +78,6 @@
     {
         FilteredUsers = Users;
     }
-
-    // This method is triggered on key press event, but only if Enter key is pressed
     private void OnKeyPress(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
@@ -100,18 +95,17 @@
     private void SortByName()
     {
         Users = Users.OrderBy(user => user.Name).ToList();
-        OnKeyPress(new KeyboardEventArgs()); // Reapply the search after sorting
+        OnKeyPress(new KeyboardEventArgs()); 
     }
 
     private void SortByEmail()
     {
         Users = Users.OrderBy(user => user.Email).ToList();
-        OnKeyPress(new KeyboardEventArgs()); // Reapply the search after sorting
+        OnKeyPress(new KeyboardEventArgs()); 
     }
 
     private void OpenOptionsModal(Users user, MouseEventArgs e)
     {
-        // Check if modal is already open, if yes, close it, otherwise open it
         if (ShowModal && SelectedUser == user)
         {
             CloseModal();
@@ -128,7 +122,6 @@
     }
     private void CloseModalOnOutsideClick(MouseEventArgs e)
     {
-        // Close modal if clicked outside
         if (ShowModal)
         {
             ShowModal = false;
