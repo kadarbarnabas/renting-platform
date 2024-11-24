@@ -1,0 +1,41 @@
+@page "/register"
+@using RentingPlatform.Shared
+@using RentingPlatform.UI.Services
+@using RentingPlatform.UI.Components
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+
+<h3>Register</h3>
+
+<RegisterForm Users="registerUser" OnValidSubmit="CreateUser" ButtonText="Register" ErrorMessage="errorMessage"/>
+
+@code
+{
+    private Users newUser = new();
+    private string errorMessage { get; set; }
+
+    private async Task CreateUser()
+    {
+        errorMessage = string.Empty;
+
+        try
+        {
+            await UserService.CreateUserAsync(newUser);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An unexpected error occurred: {ex.Message}";
+        }
+
+        if(errorMessage is null)
+        {
+            errorMessage = "Registration successful! Redirecting to login page...";
+            await Task.Delay(1000);
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            errorMessage = "An error occurred while registering. Please try again.";
+        }
+    }
+}

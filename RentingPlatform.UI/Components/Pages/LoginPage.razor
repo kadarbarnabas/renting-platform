@@ -1,0 +1,40 @@
+@page "/login"
+@using RentingPlatform.Shared
+@using RentingPlatform.UI.Services
+@using RentingPlatform.UI.Components
+@inject ILoginService LoginService
+@inject NavigationManager NavigationManager
+
+<h3>Login</h3>
+
+<LoginForm Users="loginUser" OnValidSubmit="HandleLogin" ButtonText="Login" ErrorMessage="@errorMessage"/>
+
+<p>
+    Don't have an account? <a href="/register">Register here...</a>.
+</p>
+
+@code
+{
+    private Users loginUser = new();
+    private string errorMessage;
+
+    private async Task HandleLogin()
+    {
+        try
+        {      
+            var result = await LoginService.LoginUserAsync(loginUser);
+            if (result == "Login successful.")
+            {
+                NavigationManager.NavigateTo("/home");
+            }
+            else
+            {
+                errorMessage = result;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An unexpected error occurred: {ex.Message}";
+        }
+    }
+}
