@@ -1,0 +1,145 @@
+@page "/cars"
+@using RentingPlatform.Shared
+@inject NavigationManager NavigationManager
+
+<div style="margin-bottom: 20px;">
+    <input type="text" placeholder="Search..." @bind="SearchTerm" @onkeypress="OnKeyPress" style="padding: 8px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;" />
+</div>
+
+<div style="margin-bottom: 20px;">
+    <button @onclick="SortByBrand" style="padding: 8px 12px; margin-right: 10px; border-radius: 5px; border: 1px solid #ccc;">Sort by Brand</button>
+    <button @onclick="SortByModel" style="padding: 8px 12px; margin-right: 10px; border-radius: 5px; border: 1px solid #ccc;">Sort by Model</button>
+
+</div>
+
+<div style="max-height: 80vh; overflow-y: auto; border: 2px solid #ccc; border-radius: 10px; padding: 10px; background-color: #f9f9f9;">
+    @foreach (var car in FilteredCar)
+    {
+        <div style="display: flex; justify-content: space-between; padding: 10px; border-radius: 8px; margin-bottom: 10px; background-color: #ffffff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); cursor: pointer; position: relative;">
+            <span style="font-size: 16px; font-weight: bold;">@car.Brand</span>
+            <span style="font-size: 16px; font-weight: bold;">@car.Model</span>
+
+            <button @onclick="(e) => OpenOptionsModal(car, e)" style="background: none; border: none; color: #007bff; cursor: pointer;">
+                ⋮
+            </button>
+
+            @if (SelectedCar == car && ShowModal)
+            {
+                <div class="options-modal" style="position: absolute; top: 0; right: 35px; padding: 10px; border-radius: 8px; background-color: white; box-shadow: 0 1px 5px rgba(0,0,0,0.2); z-index: 100;">
+                    <button @onclick="() => EditCar(car)" style="padding: 8px 12px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #f0ad4e; color: white; width: 100%;">Edit</button>
+                    <button @onclick="() => DeleteCar(car)" style="padding: 8px 12px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; background-color: #d9534f; color: white; width: 100%;">Delete</button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@if (ShowModal)
+{
+    <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5);" @onclick="CloseModalOnOutsideClick">
+    </div>
+}
+
+@code {
+    private List<Car> Cars = new List<Car>
+    {
+  // European Cars
+  new Car { Brand = "Audi", Model = "A4" },
+  new Car { Brand = "BMW", Model = "X3" },
+  new Car { Brand = "Citroen", Model = "C4" },
+  new Car { Brand = "Fiat", Model = "500" },
+  new Car { Brand = "Ford", Model = "Fiesta" },
+  new Car { Brand = "Mercedes-Benz", Model = "C-Class" },
+  new Car { Brand = "Peugeot", Model = "208" },
+  new Car { Brand = "Renault", Model = "Clio" },
+  new Car { Brand = "Skoda", Model = "Octavia" },
+  new Car { Brand = "Volkswagen", Model = "Golf" },
+
+  // American Cars
+  new Car { Brand = "Chevrolet", Model = "Camaro" },
+  new Car { Brand = "Dodge", Model = "Challenger" },
+  new Car { Brand = "Ford", Model = "Mustang" },
+  new Car { Brand = "Jeep", Model = "Wrangler" },
+  new Car { Brand = "Tesla", Model = "Model 3" },
+  new Car { Brand = "Toyota", Model = "Camry" },
+
+  // Asian Cars
+  new Car { Brand = "Honda", Model = "Civic" },
+  new Car { Brand = "Hyundai", Model = "Tucson" },
+  new Car { Brand = "Kia", Model = "Sportage" },
+  new Car { Brand = "Mazda", Model = "3" },
+  new Car { Brand = "Nissan", Model = "Sentra" },
+  new Car { Brand = "Subaru", Model = "Impreza" },
+  new Car { Brand = "Toyota", Model = "Corolla" },
+    };
+
+    private string SearchTerm { get; set; } = string.Empty;
+    private List<Car> FilteredCar { get; set; }
+    private bool ShowModal { get; set; } = false;
+    private Car SelectedCar { get; set; }
+
+    protected override void OnInitialized()
+    {
+        FilteredCar = Cars;
+    }
+    private void OnKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            if (SearchTerm.Length >= 3 || string.IsNullOrEmpty(SearchTerm))
+            {
+                FilteredCar = Cars
+                    .Where(car => car.Brand.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                   car.Model.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+        }
+    }
+
+    private void SortByBrand()
+    {
+     Cars = Cars.OrderBy(car => car.Brand).ToList();
+        OnKeyPress(new KeyboardEventArgs()); 
+    }
+
+    private void SortByModel()
+    {
+     Cars = Cars.OrderBy(car => car.Model).ToList();
+        OnKeyPress(new KeyboardEventArgs()); 
+    }
+
+    
+    private void OpenOptionsModal(Car car, MouseEventArgs e)
+    {
+        if (ShowModal && SelectedCar == car)
+        {
+            CloseModal();
+        }
+        else
+        {
+            SelectedCar = car;
+            ShowModal = true;
+        }
+    }
+    private void CloseModal()
+    {
+        ShowModal = false;
+    }
+    private void CloseModalOnOutsideClick(MouseEventArgs e)
+    {
+        if (ShowModal)
+        {
+            ShowModal = false;
+        }
+    }
+
+    private async Task EditCar(Car car)
+    {
+        // Call the API to edit car
+    }
+
+    private async Task DeleteCar(Car car)
+    {
+        // Call the API to delete car
+    }
+}
