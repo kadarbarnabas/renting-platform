@@ -1,6 +1,7 @@
 @page "/cars"
 @using RentingPlatform.Shared
 @inject NavigationManager NavigationManager
+@inject HttpClient Http
 
 <div style="margin-bottom: 20px;">
     <input type="text" placeholder="Search..." @bind="SearchTerm" @onkeypress="OnKeyPress" style="padding: 8px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;" />
@@ -41,45 +42,18 @@
 }
 
 @code {
-    private List<Car> Cars = new List<Car>
-    {
-  // European Cars
-  new Car { Brand = "Audi", Model = "A4" },
-  new Car { Brand = "BMW", Model = "X3" },
-  new Car { Brand = "Citroen", Model = "C4" },
-  new Car { Brand = "Fiat", Model = "500" },
-  new Car { Brand = "Ford", Model = "Fiesta" },
-  new Car { Brand = "Mercedes-Benz", Model = "C-Class" },
-  new Car { Brand = "Peugeot", Model = "208" },
-  new Car { Brand = "Renault", Model = "Clio" },
-  new Car { Brand = "Skoda", Model = "Octavia" },
-  new Car { Brand = "Volkswagen", Model = "Golf" },
-
-  // American Cars
-  new Car { Brand = "Chevrolet", Model = "Camaro" },
-  new Car { Brand = "Dodge", Model = "Challenger" },
-  new Car { Brand = "Ford", Model = "Mustang" },
-  new Car { Brand = "Jeep", Model = "Wrangler" },
-  new Car { Brand = "Tesla", Model = "Model 3" },
-  new Car { Brand = "Toyota", Model = "Camry" },
-
-  // Asian Cars
-  new Car { Brand = "Honda", Model = "Civic" },
-  new Car { Brand = "Hyundai", Model = "Tucson" },
-  new Car { Brand = "Kia", Model = "Sportage" },
-  new Car { Brand = "Mazda", Model = "3" },
-  new Car { Brand = "Nissan", Model = "Sentra" },
-  new Car { Brand = "Subaru", Model = "Impreza" },
-  new Car { Brand = "Toyota", Model = "Corolla" },
-    };
+    private List<Car> Cars = new List<Car>();
 
     private string SearchTerm { get; set; } = string.Empty;
     private List<Car> FilteredCar { get; set; }
     private bool ShowModal { get; set; } = false;
     private Car SelectedCar { get; set; }
 
-    protected override void OnInitialized()
-    {
+
+    protected override async Task OnInitializedAsync()
+    {   
+        Cars = await Http.GetFromJsonAsync<List<Car>>("/Car");
+        Console.WriteLine(Cars);
         FilteredCar = Cars;
     }
     private void OnKeyPress(KeyboardEventArgs e)

@@ -13,6 +13,30 @@ public class CarController : ControllerBase
     {
         _CarService = CarService;
     }
+    [HttpPost("{id:guid}/upload-image")]
+public async Task<IActionResult> UploadImage(Guid id, IFormFile imageFile)
+{
+    if (imageFile == null || imageFile.Length == 0)
+    {
+        return BadRequest("No file uploaded.");
+    }
+
+    var car = await _CarService.Get(id);
+    if (car == null)
+    {
+        return NotFound("Car not found.");
+    }
+
+    using (var memoryStream = new MemoryStream())
+    {
+        await imageFile.CopyToAsync(memoryStream);
+        car.Image = memoryStream.ToArray();
+    }
+
+    await _CarService.Update(car);
+
+    return Ok("Image uploaded successfully.");
+}
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Car Car)
@@ -23,7 +47,7 @@ public class CarController : ControllerBase
             return Conflict();
         }
         await _CarService.Create(Car);
-        return Ok();
+        return Ok(Car.CarId);
     }
 
     [HttpGet("{id:guid}")]

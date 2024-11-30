@@ -1,0 +1,59 @@
+@page "/cars/create"
+@using System.IO
+@using RentingPlatform.Shared
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+
+<h2>Autó felvétele</h2>
+<hr/>
+<div>
+
+
+    <EditForm Model="@car" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="Form-Group">
+            <label>Márka</label>
+            <InputText class="form-control" @bind-Value = "car.Brand"></InputText>
+
+            <label>Model</label>
+            <InputText class="form-control" @bind-Value = "car.Model"></InputText>
+
+            <label>Rendszám</label>
+            <InputText class="form-control" @bind-Value = "car.PlateNumber"></InputText>
+
+            <label>Leírás</label>
+            <InputText class="form-control" @bind-Value = "car.Description"></InputText>
+
+           <button type="submit" class="btn btn-primary">Létrehozás</button>
+
+        </div>
+
+
+
+
+    </EditForm>
+
+</div>
+
+@code{
+    private Car car = new();
+
+     private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+
+    }
+    
+    private async Task HandleSubmit()
+    {
+        try{
+        var res = await Http.PostAsJsonAsync<Car>("/Car",car);
+        Console.WriteLine(res);
+        NavigationManager.NavigateTo("/cars");
+    }
+
+    catch {
+
+    } 
+    }
+}
