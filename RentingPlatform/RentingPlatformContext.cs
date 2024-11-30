@@ -13,5 +13,5 @@ public class RentingPlatformContext : DbContext
 
     public virtual DbSet<Car> Cars { get; set;}
 
-    public virtual DbSet<Airbnb> Airbnb { get; set; }
+    public virtual DbSet<Airbnbs> Airbnb { get; set; }
 }
