@@ -11,5 +11,7 @@ namespace RentingPlatform
         Task UpdateAirbnb(Airbnbs airbnb);
         Task AddImageToAirbnb(Guid airbnbId, string imageUrl, Guid userId);
         Task AddRatingToAirbnb(Guid airbnbId, int rating, Guid userId);
+        Task<DateTime?> GetNextAvailableDate(Guid airbnbId);
+        Task<decimal> CalculateTotalPrice(Guid airbnbId, DateTime startDate, DateTime endDate);
     }
 }

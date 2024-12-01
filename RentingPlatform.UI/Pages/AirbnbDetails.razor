@@ -1,0 +1,75 @@
+@page "/airbnb/{airbnbId}"
+@using RentingPlatform.Shared
+@inject NavigationManager Navigation
+
+<PageTitle>Airbnb Details</PageTitle>
+
+<h3>Airbnb Details</h3>
+
+@if (airbnb != null)
+{
+    <div class="card">
+        <img src="@airbnb.ImageUrls.FirstOrDefault()" class="card-img-top" alt="Airbnb image" />
+        <div class="card-body">
+            <h5 class="card-title">@airbnb.Name</h5>
+            <p class="card-text">@airbnb.Description</p>
+            <p class="card-text"><strong>Location:</strong> @airbnb.Location</p>
+            <p class="card-text"><strong>Price:</strong> @airbnb.PricePerNight:C per night</p>
+            <p class="card-text"><strong>Max Guests:</strong> @airbnb.MaxGuests</p>
+            <p class="card-text"><strong>Average Rating:</strong> @airbnb.AverageRating</p>
+            <p class="card-text"><strong>Amenities:</strong> @airbnb.Amenities</p>
+            <p class="card-text"><strong>Rooms:</strong> @airbnb.Rooms</p>
+            <p class="card-text"><strong>Beds:</strong> @airbnb.Beds</p>
+            <p class="card-text"><strong>Bathrooms:</strong> @airbnb.Bathrooms</p>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading...</p>
+}
+
+@code {
+    [Parameter] public Guid AirbnbId { get; set; }
+    
+    private Airbnbs airbnb;
+
+    protected override void OnInitialized()
+    {
+        var allAirbnbs = new List<Airbnbs>
+        {
+            new Airbnbs
+            {
+                AirbnbId = Guid.NewGuid(),
+                Name = "Cozy Cottage",
+                Description = "A cozy cottage in the heart of the countryside.",
+                Location = "Lakeview, NY",
+                PricePerNight = 150.00m,
+                MaxGuests = 4,
+                AverageRating = 4.5m,
+                ImageUrls = new List<string> { "https://via.placeholder.com/400x200" },
+                Rooms = 3,
+                Beds = 2,
+                Bathrooms = 2,
+                Amenities = "Wi-Fi, Kitchen, Air Conditioning"
+            },
+            new Airbnbs
+            {
+                AirbnbId = Guid.NewGuid(),
+                Name = "Luxury Apartment",
+                Description = "A luxury apartment with city views.",
+                Location = "Manhattan, NY",
+                PricePerNight = 300.00m,
+                MaxGuests = 2,
+                AverageRating = 5.0m,
+                ImageUrls = new List<string> { "https://via.placeholder.com/400x200" },
+                Rooms = 1,
+                Beds = 1,
+                Bathrooms = 1,
+                Amenities = "Wi-Fi, AC"
+            }
+        };
+
+        airbnb = allAirbnbs.FirstOrDefault(a => a.AirbnbId == AirbnbId);
+    }
+}

@@ -19,14 +19,13 @@ namespace RentingPlatform.Controllers
         {
             var existingAirbnb = await _airbnbService.GetAirbnb(airbnb.AirbnbId);
 
-            if (existingAirbnb is not null)
+            if (existingAirbnb != null)
             {
-                return Conflict();
+                return Conflict("An Airbnb with the same ID already exists.");
             }
 
             await _airbnbService.CreateAirbnb(airbnb);
-
-            return Ok();
+            return CreatedAtAction(nameof(GetAirbnb), new { id = airbnb.AirbnbId }, airbnb);
         }
 
         [HttpDelete("{id:guid}")]
@@ -34,14 +33,13 @@ namespace RentingPlatform.Controllers
         {
             var airbnb = await _airbnbService.GetAirbnb(id);
 
-            if (airbnb is null)
+            if (airbnb == null)
             {
-                return NotFound();
+                return NotFound($"Airbnb with ID {id} not found.");
             }
 
             await _airbnbService.DeleteAirbnb(id);
-
-            return Ok();
+            return NoContent();
         }
 
         [HttpGet("{id:guid}")]
@@ -49,9 +47,9 @@ namespace RentingPlatform.Controllers
         {
             var airbnb = await _airbnbService.GetAirbnb(id);
 
-            if (airbnb is null)
+            if (airbnb == null)
             {
-                return NotFound();
+                return NotFound($"Airbnb with ID {id} not found.");
             }
 
             return Ok(airbnb);
@@ -60,7 +58,8 @@ namespace RentingPlatform.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Airbnbs>>> GetAllAirbnbs()
         {
-            return Ok(await _airbnbService.GetAllAirbnbs());
+            var airbnbs = await _airbnbService.GetAllAirbnbs();
+            return Ok(airbnbs);
         }
 
         [HttpPut("{id:guid}")]
@@ -68,19 +67,18 @@ namespace RentingPlatform.Controllers
         {
             if (id != updatedAirbnb.AirbnbId)
             {
-                return BadRequest();
+                return BadRequest("ID in the URL does not match ID in the request body.");
             }
 
             var existingAirbnb = await _airbnbService.GetAirbnb(id);
 
-            if (existingAirbnb is null)
+            if (existingAirbnb == null)
             {
-                return NotFound();
+                return NotFound($"Airbnb with ID {id} not found.");
             }
 
             await _airbnbService.UpdateAirbnb(updatedAirbnb);
-
-            return Ok();
+            return Ok("Airbnb has been successfully updated.");
         }
 
         [HttpPost("{id:guid}/images")]
@@ -89,25 +87,30 @@ namespace RentingPlatform.Controllers
             try
             {
                 await _airbnbService.AddImageToAirbnb(id, imageUrl, userId);
-                return Ok();
+                return Ok("Image has been successfully added.");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest($"Error adding image: {ex.Message}");
             }
         }
 
         [HttpPost("{id:guid}/ratings")]
         public async Task<IActionResult> AddRatingToAirbnb(Guid id, [FromBody] int rating, [FromQuery] Guid userId)
         {
+            if (rating < 1 || rating > 5)
+            {
+                return BadRequest("Rating must be between 1 and 5.");
+            }
+
             try
             {
                 await _airbnbService.AddRatingToAirbnb(id, rating, userId);
-                return Ok();
+                return Ok("Rating has been successfully added.");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest($"Error adding rating: {ex.Message}");
             }
         }
     }

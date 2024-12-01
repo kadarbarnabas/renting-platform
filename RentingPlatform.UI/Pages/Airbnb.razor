@@ -1,0 +1,129 @@
+@page "/airbnbs"
+@inject NavigationManager Navigation
+@using RentingPlatform.Shared
+@using System.Linq
+
+<PageTitle>Airbnb Listings</PageTitle>
+
+<h3>Available Airbnbs</h3>
+
+<!-- Filters -->
+<div class="row mb-4">
+    <div class="col-md-4">
+        <label for="locationFilter">Location</label>
+        <select id="locationFilter" class="form-control" @bind="selectedLocation">
+            <option value="">All Locations</option>
+            <option value="Lakeview, NY">Lakeview, NY</option>
+            <option value="Manhattan, NY">Manhattan, NY</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label for="priceFilter">Price Per Night</label>
+        <select id="priceFilter" class="form-control" @bind="selectedPrice">
+            <option value="">All Prices</option>
+            <option value="150">Up to $150</option>
+            <option value="300">Up to $300</option>
+            <option value="500">Up to $500</option>
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label for="bedroomFilter">Bedrooms</label>
+        <select id="bedroomFilter" class="form-control" @bind="selectedBedrooms">
+            <option value="">All Bedrooms</option>
+            <option value="1">1 Bedroom</option>
+            <option value="2">2 Bedrooms</option>
+            <option value="3">3 Bedrooms</option>
+        </select>
+    </div>
+</div>
+
+<!-- Apply Filter Button -->
+<div class="row mb-4">
+    <div class="col-md-12">
+        <button class="btn btn-primary" @onclick="ApplyFilters">Apply Filters</button>
+    </div>
+</div>
+
+<!-- Airbnb Listings -->
+<div class="row">
+    @foreach (var airbnb in filteredAirbnbs)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="@airbnb.ImageUrls.FirstOrDefault()" class="card-img-top" alt="Airbnb image" />
+                <div class="card-body">
+                    <h5 class="card-title">@airbnb.Name</h5>
+                    <p class="card-text">@airbnb.Description</p>
+                    <p class="card-text"><strong>Location:</strong> @airbnb.Location</p>
+                    <p class="card-text"><strong>Price:</strong> @airbnb.PricePerNight:C per night</p>
+                    <p class="card-text"><strong>Max Guests:</strong> @airbnb.MaxGuests</p>
+                    <p class="card-text"><strong>Average Rating:</strong> @airbnb.AverageRating</p>
+                    <button class="btn btn-primary" @onclick="() => ViewDetails(airbnb.AirbnbId)">View Details</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<Airbnbs> allAirbnbs = new List<Airbnbs>
+    {
+        new Airbnbs
+        {
+            AirbnbId = Guid.NewGuid(),
+            Name = "Cozy Cottage",
+            Description = "A cozy cottage in the heart of the countryside.",
+            Location = "Lakeview, NY",
+            PricePerNight = 150.00m,
+            MaxGuests = 4,
+            AverageRating = 4.5m,
+            ImageUrls = new List<string> { "https://via.placeholder.com/400x200" },
+            Rooms = 3,
+            Beds = 2,
+            Bathrooms = 2,
+            Amenities = "Wi-Fi, Kitchen, Air Conditioning"
+        },
+        new Airbnbs
+        {
+            AirbnbId = Guid.NewGuid(),
+            Name = "Luxury Apartment",
+            Description = "A luxury apartment with city views.",
+            Location = "Manhattan, NY",
+            PricePerNight = 300.00m,
+            MaxGuests = 2,
+            AverageRating = 5.0m,
+            ImageUrls = new List<string> { "https://via.placeholder.com/400x200" },
+            Rooms = 1,
+            Beds = 1,
+            Bathrooms = 1,
+            Amenities = "Wi-Fi, AC"
+        },
+    };
+
+    private List<Airbnbs> filteredAirbnbs;
+
+    private string selectedLocation = "";
+    private decimal? selectedPrice = null;
+    private int? selectedBedrooms = null;
+
+    protected override void OnInitialized()
+    {
+        filteredAirbnbs = allAirbnbs;
+    }
+
+    private void ApplyFilters()
+    {
+        filteredAirbnbs = allAirbnbs.Where(a =>
+            (string.IsNullOrEmpty(selectedLocation) || a.Location.Contains(selectedLocation)) &&
+            (!selectedPrice.HasValue || a.PricePerNight <= selectedPrice) &&
+            (!selectedBedrooms.HasValue || a.Beds == selectedBedrooms)
+        ).ToList();
+    }
+
+    private void ViewDetails(Guid airbnbId)
+    {
+        Navigation.NavigateTo($"/airbnb/{airbnbId}");
+    }
+}

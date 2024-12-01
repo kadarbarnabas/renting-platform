@@ -35,7 +35,7 @@ namespace RentingPlatform
 
         public async Task<List<Airbnbs>> GetAllAirbnbs()
         {
-            _logger.LogInformation("Every Airbnb has been fetched");
+            _logger.LogInformation("All Airbnbs have been fetched");
             return await _context.Airbnb.ToListAsync();
         }
 
@@ -64,14 +64,17 @@ namespace RentingPlatform
                 existingAirbnb.Description = airbnb.Description;
                 existingAirbnb.PricePerNight = airbnb.PricePerNight;
                 existingAirbnb.Location = airbnb.Location;
+                existingAirbnb.Country = airbnb.Country; 
                 existingAirbnb.MaxGuests = airbnb.MaxGuests;
                 existingAirbnb.Amenities = airbnb.Amenities;
                 existingAirbnb.AverageRating = airbnb.AverageRating;
-
+                existingAirbnb.Rooms = airbnb.Rooms; 
+                existingAirbnb.Beds = airbnb.Beds; 
+                existingAirbnb.Bathrooms = airbnb.Bathrooms; 
                 _context.Airbnb.Update(existingAirbnb);
                 await _context.SaveChangesAsync();
 
-                _logger.LogInformation("{Airbnb} has been updated", existingAirbnb);
+                _logger.LogInformation("Airbnb has been updated: {@Airbnb}", existingAirbnb);
             }
             else
             {
@@ -86,7 +89,7 @@ namespace RentingPlatform
             {
                 airbnb.AddImage(imageUrl, userId);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("Image has been added to Airbnb {@AirbnbId}", airbnbId);
+                _logger.LogInformation("Image has been added to Airbnb: {@AirbnbId}", airbnbId);
             }
             else
             {
@@ -101,11 +104,43 @@ namespace RentingPlatform
             {
                 airbnb.AddRating(rating, userId);
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("Rating has been added to Airbnb {@AirbnbId}", airbnbId);
+                _logger.LogInformation("Rating has been added to Airbnb: {@AirbnbId}", airbnbId);
             }
             else
             {
                 _logger.LogWarning("Airbnb not found");
+            }
+        }
+
+        public async Task<DateTime?> GetNextAvailableDate(Guid airbnbId)
+        {
+            var airbnb = await GetAirbnb(airbnbId);
+            if (airbnb != null)
+            {
+                var nextAvailableDate = airbnb.GetNextAvailableDate();
+                _logger.LogInformation("Next available date for Airbnb {@AirbnbId}: {@NextAvailableDate}", airbnbId, nextAvailableDate);
+                return nextAvailableDate;
+            }
+            else
+            {
+                _logger.LogWarning("Airbnb not found");
+                return null;
+            }
+        }
+
+        public async Task<decimal> CalculateTotalPrice(Guid airbnbId, DateTime startDate, DateTime endDate)
+        {
+            var airbnb = await GetAirbnb(airbnbId);
+            if (airbnb != null)
+            {
+                var totalPrice = airbnb.CalculateTotalPrice(startDate, endDate);
+                _logger.LogInformation("Total price for Airbnb {@AirbnbId}: {@TotalPrice}", airbnbId, totalPrice);
+                return totalPrice;
+            }
+            else
+            {
+                _logger.LogWarning("Airbnb not found");
+                return 0;
             }
         }
     }
