@@ -10,7 +10,7 @@
 <div style="margin-bottom: 20px;">
     <button @onclick="SortByBrand" style="padding: 8px 12px; margin-right: 10px; border-radius: 5px; border: 1px solid #ccc;">Sort by Brand</button>
     <button @onclick="SortByModel" style="padding: 8px 12px; margin-right: 10px; border-radius: 5px; border: 1px solid #ccc;">Sort by Model</button>
-        <button @onclick="NavigateToCarCreate" style="padding: 8px 12px; margin-right: 30px; border-radius: 5px; border: 1px solid #ccc;">Új Autó hozzáadása</button>
+    <button @onclick="NavigateToCarCreate" style="padding: 8px 12px; margin-right: 30px; border-radius: 5px; border: 1px solid #ccc;">Új Autó hozzáadása</button>
 
 </div>
 
@@ -20,6 +20,8 @@
         <div style="display: flex; justify-content: space-between; padding: 10px; border-radius: 8px; margin-bottom: 10px; background-color: #ffffff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); cursor: pointer; position: relative;">
             <span style="font-size: 16px; font-weight: bold;">@car.Brand</span>
             <span style="font-size: 16px; font-weight: bold;">@car.Model</span>
+            <img src="data:image/jpg;base64,@car.Image" alt="Car Image" style="max-width: 200px; height: auto; border-radius: 5px;" />
+
 
             <button @onclick="(e) => OpenOptionsModal(car, e)" style="background: none; border: none; color: #007bff; cursor: pointer;">
                 ⋮
@@ -115,11 +117,29 @@
 
     private async Task EditCar(Car car)
     {
-        // Call the API to edit car
+        NavigationManager.NavigateTo($"/cars/edit/{car.CarId}");
+
     }
 
-    private async Task DeleteCar(Car car)
+private async Task DeleteCar(Car car)
+{
+    try
     {
-        // Call the API to delete car
+        var response = await Http.DeleteAsync($"/Car/{car.CarId}");
+        if (response.IsSuccessStatusCode)
+        {
+            Cars.Remove(car);
+            FilteredCar.Remove(car);
+        }
+        else
+        {
+            Console.WriteLine($"Failed to delete car: {response.ReasonPhrase}");
+        }
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error deleting car: {ex.Message}");
+    }
+}
+
 }
