@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentingPlatform;
 
@@ -10,9 +11,11 @@ using RentingPlatform;
 namespace RentingPlatform.Migrations
 {
     [DbContext(typeof(RentingPlatformContext))]
-    partial class RentingPlatformContextModelSnapshot : ModelSnapshot
+    [Migration("20241201205503_rating_location")]
+    partial class rating_location
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,9 +116,6 @@ namespace RentingPlatform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("AverageRating")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Brand")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -162,9 +162,6 @@ namespace RentingPlatform.Migrations
                     b.Property<Guid?>("AirbnbsAirbnbId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("CarId")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("RatingValue")
                         .HasColumnType("INTEGER");
 
@@ -174,8 +171,6 @@ namespace RentingPlatform.Migrations
                     b.HasKey("RatingId");
 
                     b.HasIndex("AirbnbsAirbnbId");
-
-                    b.HasIndex("CarId");
 
                     b.ToTable("Ratings");
                 });
@@ -235,10 +230,6 @@ namespace RentingPlatform.Migrations
                     b.HasOne("RentingPlatform.Shared.Airbnbs", null)
                         .WithMany("Ratings")
                         .HasForeignKey("AirbnbsAirbnbId");
-
-                    b.HasOne("RentingPlatform.Shared.Car", null)
-                        .WithMany("Ratings")
-                        .HasForeignKey("CarId");
                 });
 
             modelBuilder.Entity("RentingPlatform.Shared.Airbnbs", b =>
@@ -246,11 +237,6 @@ namespace RentingPlatform.Migrations
                     b.Navigation("Ratings");
 
                     b.Navigation("Timetable");
-                });
-
-            modelBuilder.Entity("RentingPlatform.Shared.Car", b =>
-                {
-                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }
