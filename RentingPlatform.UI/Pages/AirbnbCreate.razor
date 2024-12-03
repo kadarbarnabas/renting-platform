@@ -1,0 +1,144 @@
+@page "/airbnbs/create"
+@using RentingPlatform.Shared
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+
+<h2>Új Airbnb hozzáadása</h2>
+<hr/>
+
+<div>
+    <EditForm Model="@airbnb" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        
+        <!-- Name -->
+        <div class="form-group">
+            <label>Név</label>
+            <InputText class="form-control" @bind-Value="airbnb.Name"></InputText>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label>Leírás</label>
+            <InputTextArea class="form-control" @bind-Value="airbnb.Description"></InputTextArea>
+        </div>
+
+        <!-- Price Per Night -->
+        <div class="form-group">
+            <label>Ár éjszakánként (HUF)</label>
+            <InputNumber class="form-control" @bind-Value="airbnb.PricePerNight"></InputNumber>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+            <label>Helyszín</label>
+            <InputText class="form-control" @bind-Value="airbnb.Location"></InputText>
+        </div>
+
+        <!-- Country -->
+        <div class="form-group">
+            <label>Ország</label>
+            <InputText class="form-control" @bind-Value="airbnb.Country"></InputText>
+        </div>
+
+        <!-- Max Guests -->
+        <div class="form-group">
+            <label>Maximális vendégek</label>
+            <InputNumber class="form-control" @bind-Value="airbnb.MaxGuests"></InputNumber>
+        </div>
+
+        <!-- Rooms, Beds, and Bathrooms -->
+        <div class="form-group">
+            <label>Szobák</label>
+            <InputNumber class="form-control" @bind-Value="airbnb.Rooms"></InputNumber>
+
+            <label>Ágyak</label>
+            <InputNumber class="form-control" @bind-Value="airbnb.Beds"></InputNumber>
+
+            <label>Fürdőszobák</label>
+            <InputNumber class="form-control" @bind-Value="airbnb.Bathrooms"></InputNumber>
+        </div>
+
+        <!-- Amenities -->
+        <div class="form-group">
+            <label>Szolgáltatások</label>
+            <InputTextArea class="form-control" @bind-Value="airbnb.Amenities"></InputTextArea>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-group">
+            <label>Képfeltöltés</label>
+            <InputFile class="form-control" OnChange="HandleFileSelected"></InputFile>
+            @if (imagePreviewUrl != null)
+            {
+                <div class="mt-3">
+                    <strong>Előnézet:</strong>
+                    <img src="@imagePreviewUrl" alt="Image Preview" style="max-width: 200px; max-height: 200px;"/>
+                </div>
+            }
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary mt-3">Hozzáadás</button>
+    </EditForm>
+
+    <!-- Error Message Display -->
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger mt-3">
+            @errorMessage
+        </div>
+    }
+</div>
+
+@code {
+    private Airbnbs airbnb = new Airbnbs();
+    private string? errorMessage;
+    private string? imagePreviewUrl;
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+
+        if (file != null && file.ContentType.StartsWith("image/"))
+        {
+            var buffer = new byte[file.Size];
+            await file.OpenReadStream().ReadAsync(buffer);
+
+            // Create a preview URL for the selected image
+            imagePreviewUrl = $"data:image/{file.ContentType.Split('/')[1]};base64,{Convert.ToBase64String(buffer)}";
+
+            // Optionally store the image in the model's image list
+            airbnb.ImageUrls.Add(imagePreviewUrl);
+        }
+        else
+        {
+            errorMessage = "Kérjük, válasszon egy érvényes képfájlt!";
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        try
+        {
+            // Assign OwnerId (replace with actual logged-in user ID)
+            airbnb.OwnerId = Guid.NewGuid();
+
+            var response = await Http.PostAsJsonAsync("/Airbnbs", airbnb);
+
+            if (response.IsSuccessStatusCode)
+            {
+                NavigationManager.NavigateTo("/airbnbs");
+            }
+            else
+            {
+                errorMessage = "Hiba történt az Airbnb hozzáadása során. Kérjük, próbálja újra!";
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+            errorMessage = "Hiba történt a kapcsolat során. Kérjük, próbálja újra!";
+        }
+    }
+}

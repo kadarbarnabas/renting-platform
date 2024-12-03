@@ -37,13 +37,13 @@ namespace RentingPlatform.Shared
         [ForeignKey(nameof(OwnerId))]
         public virtual Users Owner { get; set; }
 
-        public List<string> ImageUrls { get; set; } = new List<string>();
+        public virtual List<string> ImageUrls { get; set; } = new List<string>();
 
         public decimal AverageRating { get; set; }
 
-        public List<Ratings> Ratings { get; set; } = new List<Ratings>();
+        public virtual List<Ratings> Ratings { get; set; } = new List<Ratings>();
 
-        public List<AirbnbBookings> Timetable { get; set; } = new List<AirbnbBookings>();
+        public virtual List<AirbnbBookings> Timetable { get; set; } = new List<AirbnbBookings>();
 
         public int Rooms { get; set; } 
         public int Beds { get; set; } 
@@ -82,12 +82,17 @@ namespace RentingPlatform.Shared
             Ratings.Add(new Ratings { UserId = userId, RatingValue = rating });
         }
     }
+public class Ratings
+{
+    [Key]
+    public Guid RatingId { get; set; }  // Add RatingId as a primary key
 
-    public class Ratings
-    {
-        public Guid UserId { get; set; }
-        public int RatingValue { get; set; }
-    }
+    public Guid UserId { get; set; }
+    public int RatingValue { get; set; }
+
+    public Guid AirbnbId { get; set; } 
+}
+
 
     public class AirbnbBookings
     {
@@ -97,5 +102,6 @@ namespace RentingPlatform.Shared
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid AirbnbId { get; set; }
+        
     }
 }
