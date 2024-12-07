@@ -23,7 +23,7 @@ namespace RentingPlatform.Shared
         [MaxLength(10)]
         public string PlateNumber { get; set; }
 
-        public decimal AverageRating { get; set; }
+        public decimal AverageRating { get; set; } = 0.0m;
 
         public virtual List<Ratings> Ratings { get; set; } = new List<Ratings>();
 
@@ -33,6 +33,7 @@ namespace RentingPlatform.Shared
         [Required]
         public string Location { get; set; }
 
+        [MaxLength(800)]
         public string Description { get; set; }
         
         public byte[]? Image { get; set; }
@@ -44,7 +45,7 @@ namespace RentingPlatform.Shared
                 public void AddRating(int rating, Guid userId)
         {
             if (userId == OwnerId)
-                throw new UnauthorizedAccessException("Owners cannot rate their own Airbnb.");
+                throw new UnauthorizedAccessException("Owners cannot rate their own Cars.");
 
             AverageRating = (AverageRating * Ratings.Count + rating) / (Ratings.Count + 1);
             Ratings.Add(new Ratings { UserId = userId, RatingValue = rating });

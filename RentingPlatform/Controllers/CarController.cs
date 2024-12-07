@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RentingPlatform.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("[controller]/route_car")]
 public class CarController : ControllerBase
 {
     private readonly ICarService _CarService;

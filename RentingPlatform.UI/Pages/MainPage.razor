@@ -1,4 +1,5 @@
 @page "/"
+@inject HttpClient Http
 
 <div id="map" style="width: 100%; height: 100vh;"></div>
 
@@ -47,7 +48,7 @@
     <div class="results-container">
         @if (isCarFilterSelected)
         {
-            foreach (var car in cars)
+            foreach (var car in Cars)
             {
                 <div class="result-row">
                     <div class="result-item">
@@ -222,10 +223,63 @@
 
 @code {
 
+ private List<Car> Cars = new List<Car>();
+
+    private string SearchTerm { get; set; } = string.Empty;
+    private List<Car> FilteredCar { get; set; }
+    private bool ShowModal { get; set; } = false;
+    private Car SelectedCar { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {   
+        Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
+        Console.WriteLine(Cars);
+        FilteredCar = Cars;
+    }
+    private void OnKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            if (SearchTerm.Length >= 3 || string.IsNullOrEmpty(SearchTerm))
+            {
+                FilteredCar = Cars
+                    .Where(car => car.Brand.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                                   car.Model.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+        }
+    }
+
+     private void OpenOptionsModal(Car car, MouseEventArgs e)
+    {
+        if (ShowModal && SelectedCar == car)
+        {
+            CloseModal();
+        }
+        else
+        {
+            SelectedCar = car;
+            ShowModal = true;
+        }
+    }
+    private void CloseModal()
+    {
+        ShowModal = false;
+    }
+    private void CloseModalOnOutsideClick(MouseEventArgs e)
+    {
+        if (ShowModal)
+        {
+            ShowModal = false;
+        }
+    }
+
+
     private List<string> models = new List<string>{
         "Tesla", "BMW", "Toyota", "Volkswagen"
     };
-    private List<Car> cars = new List<Car>
+/*    private List<Car> cars = new List<Car>
     {
         new Car
         {
@@ -259,7 +313,7 @@
                 new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 }
             }
         }
-    };
+    }; */
 
     private List<Airbnbs> airbnbList = new List<Airbnbs>
     {
