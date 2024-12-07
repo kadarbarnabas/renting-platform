@@ -231,6 +231,8 @@
         try
         {
             airbnbList = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
+            Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
+            FilteredCar = Cars;
         }
         catch (Exception ex)
         {
@@ -249,13 +251,6 @@
     private bool ShowModal { get; set; } = false;
     private Car SelectedCar { get; set; }
 
-
-    protected override async Task OnInitializedAsync()
-    {   
-        Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
-        Console.WriteLine(Cars);
-        FilteredCar = Cars;
-    }
     private void OnKeyPress(KeyboardEventArgs e)
     {
         if (e.Key == "Enter")
