@@ -1,4 +1,5 @@
 @page "/"
+@inject HttpClient Http
 
 <div id="map" style="width: 100%; height: 100vh;"></div>
 
@@ -220,7 +221,26 @@
     </div>
 </div>
 
+
 @code {
+    private List<Airbnbs> airbnbList = new();
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            airbnbList = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
 
     private List<string> models = new List<string>{
         "Tesla", "BMW", "Toyota", "Volkswagen"
@@ -261,7 +281,7 @@
         }
     };
 
-    private List<Airbnbs> airbnbList = new List<Airbnbs>
+    /*private List<Airbnbs> airbnbList = new List<Airbnbs>
     {
         new Airbnbs
         {
@@ -294,7 +314,8 @@
                     EndDate = DateTime.Today.AddDays(7),
                     AirbnbId = Guid.NewGuid()
                 }
-            }
+            },
+            Beds =0
         },
         new Airbnbs
         {
@@ -317,7 +338,7 @@
                 new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 }
             }
         }
-    };
+    };*/
 
     private bool isReserveTabVisible = false;
     private void ToggleReserveTab()

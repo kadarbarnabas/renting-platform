@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RentingPlatform.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/asd")]
     public class AirbnbController : ControllerBase
     {
         private readonly IAirbnbService _airbnbService;
