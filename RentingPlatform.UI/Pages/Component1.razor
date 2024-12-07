@@ -1,0 +1,478 @@
+<style>
+    .profile-circle-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 24px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 60px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .profile-tab {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        border-radius: 30px;
+        transition: all 0.5s ease;
+        z-index: 9;
+    }
+
+    .profile-tab.show {
+        width: 270px;
+        height: 240px;
+    }
+
+    .profile-header {
+        padding: 10px;
+        text-align: center;
+        opacity: 0; 
+        transform: translateX(100%);
+        transition: all 0.5s ease;
+    }
+
+    .profile-header.slide-in {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .profile-details {
+        padding: 10px;
+        text-align: center;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.5s ease;
+    }
+
+    .profile-details.slide-in {
+        opacity: 1; 
+        transform: translateX(0);
+    }
+
+    .tab-btn, .logout-btn, .cal-btn {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 50px; 
+        cursor: pointer;
+    }
+
+    .tab-btn i, .logout-btn i, .cal-btn i{
+        margin-right: 8px;
+    }
+
+    .tab-btn:hover, .logout-btn:hover, .cal-btn:hover {
+        background-color: #ddd;
+    }
+
+    /*Search section*/
+
+    .search-circle-button {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        background-color: #4CAF50;
+        color: white;
+        font-size: 24px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 60px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .search-tab {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        border-radius: 30px;
+        transition: all 0.5s ease;
+        z-index: 9;
+    }
+
+    .search-tab.show {
+        width: 50vh;
+        height: 95vh;
+        z-index: 11;
+    }
+
+    .search-details {
+        display: flex;
+        padding: 10px;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 0;
+        transform: translateX(100%);
+        transition: all 0.5s ease;
+    }
+
+    .search-details.slide-in {
+        opacity: 1; 
+        transform: translateX(0);
+    }
+
+    .category-btn, .filter-btn, .loc-btn, .dis-btn, .date-btn, .close-btn{
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 50px; 
+        cursor: pointer;
+        flex-grow: 1;
+    }
+
+    .category-btn:hover, .filter-btn:hover, .loc-btn:hover, .dis-btn:hover, .date-btn:hover, .close-btn:hover {
+        background-color: #ddd;
+    }
+
+    /* Aditional Tab */
+    .category-tab, .filter-tab, .location-tab, .distance-tab, .date-tab{
+        position: absolute;
+        top: 20px;
+        left: 0px;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        border-radius: 25px;
+        transition: all 0.5s ease;
+        z-index: 9;
+        opacity: 0;
+        display: flex;
+    }
+
+    .category-tab.show, .filter-tab.show, .location-tab.show, .distance-tab.show, .date-tab.show {
+        left: 53vh;
+        opacity: 1;
+    }
+
+    .date-tab {
+        flex-direction: column;
+    }
+
+    .category-tab{
+        flex-direction: column;
+        align-items: center;
+        width: 200px;
+        height: 130px;
+    }
+
+    .location-tab {
+        align-items: center;
+        width: 400px; 
+        padding: 20px;
+        height: 50px;
+    }
+
+    .location-tab input {
+        width: 100%;
+        padding: 5px 20px;
+        margin: 11px 0;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 20px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+
+    .category-tab button {
+        width: 85%;
+        padding: 10px;
+        margin: 11px 0;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 20px; 
+        cursor: pointer;
+    }
+
+    .car-btn:hover, .apartman-btn:hover {
+        background-color: #ddd;
+        z-index: 12;
+    }
+
+    .distance-tab{
+        width: 250px;
+    }
+
+    /* Slider */
+    .slider {
+        flex-grow: 1;
+        -webkit-appearance: none;
+        height: 8px;
+        background: #ddd;
+        border-radius: 5px;
+        outline: none;
+        margin: 11px 5px;
+    }
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #4CAF50;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+        background: #4CAF50;
+    }
+
+    /* Counter Input */
+    .counter-input {
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        font-size: 16px;
+        border: none;
+    }
+
+    /* Apartman Filter */
+    .filter-tab {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        width: 250px;
+    }
+
+    .filter-row {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .filter-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 30%; 
+    }
+
+    .filter-item label {
+        margin-bottom: 5px;
+    }
+
+    .filter-item input, .filter-item select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+    }
+
+    .filter-item input:focus, .filter-item select:focus {
+        outline: none;
+        box-shadow: 0 0 5px #4CAF50;
+    }
+
+
+    .price-slider {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .price-input {
+        width: 100px;
+        height: 30px;
+        text-align: center;
+        font-size: 16px;
+        margin: 5px 0;
+        border: 1px solid #4CAF50;
+        border-radius: 17px;
+        padding: 10px;
+    }
+
+    #applyFilter {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #applyFilter:hover {
+        background-color: #45a049;
+    }
+
+    .results-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Individual Item Styling */
+    .result-row {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .result-row:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Heading Styling */
+    .result-item h4 {
+        margin: 0 0 10px;
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Paragraph Styling */
+    .result-item p {
+        margin: 5px 0;
+        color: #555;
+        font-size: 14px;
+    }
+
+    /* Rating Highlight */
+    .result-item p:last-of-type {
+        color: #ff9800; /* Bright orange for ratings */
+        font-weight: bold;
+    }
+
+    .reserve-btn{
+        width: 20px;
+        height: 20px;
+        color: #4CAF50;
+        border: none;
+    }
+
+    .reserve-btn i{
+        font-size: 25px;
+    }
+
+    .reserve-btn:hover{
+        color: #265c28;;
+    }
+
+    .car-filter-row{
+        display: flex;
+        justify-content: space-evenly;
+        width: 100%;
+        margin-bottom: 15px;
+        gap: 1px;
+    }
+    .car-filter-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 68%; 
+    }
+
+    .car-filter-raiting-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 32%; 
+    }
+
+    .car-filter-item label, .car-filter-raiting-item label{
+        margin-bottom: 5px;
+    }
+
+    .car-filter-item input, .car-filter-item select, .car-filter-raiting-item input, .car-filter-raiting-item select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f1f1f1;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+    }
+    .car-filter-item select {
+        padding: 10px 11px;
+    }
+
+    .car-filter-item input:focus, .car-filter-item select:focus, .car-filter-raiting-item input:focus, .car-filter-raiting-item select:focus{
+        outline: none;
+        box-shadow: 0 0 5px #4CAF50;
+    }
+
+    .reserve-tab {
+        position: fixed;  /* Position relative to the viewport */
+        top: -100%;  /* Start off-screen above */
+        left: 53.4vh;
+        width: 330px;
+        overflow: hidden;
+        background-color: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        border-radius: 30px;
+        transition: top 1s ease;  /* Smooth transition */
+        z-index: 9;
+    }
+
+    .reserve-tab.show {
+        top: 2%;
+    }
+
+    .reserve-window {
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+    }
+
+    #book {
+        width: 100%;
+        padding: 12px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    #book:hover {
+        background-color: #45a049;
+    }
+
+}
+</style>

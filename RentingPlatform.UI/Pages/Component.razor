@@ -1,0 +1,56 @@
+<script>
+    function initMap() {
+        var options = {
+            zoom: 12,
+            center: { lat: 47.497913, lng: 19.040236 },
+            streetViewControl : false,
+            zoomControl: false,
+            mapTypeControl: false,
+            fullscreenControl: false 
+        };
+
+        var map = new google.maps.Map(document.getElementById("map"), options);
+
+        // Initialize draggable marker
+        var marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+        });
+
+        // Initialize Places search
+        const input = document.getElementById("locationSearch");
+        const searchBox = new google.maps.places.SearchBox(input);
+
+        // Bias search results to the current map's viewport
+        map.addListener("bounds_changed", () => {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        // Listen for search results
+        searchBox.addListener("places_changed", () => {
+            const places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // Clear out old marker
+            marker.setVisible(false);
+
+            // Get the first result's location
+            const place = places[0];
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            // Move the map to the searched location
+            map.setCenter(place.geometry.location);
+            map.setZoom(14);
+
+            // Move the marker to the searched location
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+        });
+    }
+</script>

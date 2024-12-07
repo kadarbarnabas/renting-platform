@@ -1,0 +1,489 @@
+@page "/"
+
+<div id="map" style="width: 100%; height: 100vh;"></div>
+
+<div class="profile-circle-button" @onclick="ToggleProfileTab">P</div>
+
+<div class="profile-tab @(isProfileTabVisible ? "show" : "")">
+    <div class="profile-header @(isProfileTabVisible ? "slide-in" : "")">
+        <h3>Hi John!</h3>
+    </div>
+    <div class="profile-details @(isProfileTabVisible ? "slide-in" : "")">
+        <button class="cal-btn">
+            <i class="fas fa-calendar-alt"></i> Calendar
+        </button>
+        <button class="tab-btn">
+            <i class="fas fa-user"></i> Profile Details
+        </button>
+        <button class="logout-btn" @onclick="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+</div>
+
+<div class="search-circle-button" @onclick="ToggleSearchTab">S</div>
+
+<div class="search-tab @(isSearchTabVisible ? "show" : "")">
+    <div class="search-details @(isSearchTabVisible ? "slide-in" : "")">
+        <button class="category-btn" @onclick="ToggleCategoryTab">
+            Category
+        </button>
+        <button class="filter-btn" @onclick="ToggleFilterTab">
+            Filters
+        </button>
+        <button class="loc-btn"  @onclick="ToggleLocationTab">
+            Location
+        </button>
+        <button class="dis-btn"  @onclick="ToggleDistanceTab">
+            Distance
+        </button>
+        <button class="date-btn"  @onclick="ToggleDateTab">
+            Date
+        </button>
+        <button class="close-btn" @onclick="ToggleSearchTab">
+            Close
+        </button>
+    </div>
+    <div class="results-container">
+        @if (isCarFilterSelected)
+        {
+            foreach (var car in cars)
+            {
+                <div class="result-row">
+                    <div class="result-item">
+                        <h4>@car.Brand</h4>
+                        <p>Location: @car.Location</p>
+                        <p>Distance: 20 km</p> <!-- @car.Distance -->
+                        <p>Price: 1000 </p> <!-- @car.Price -->
+                        <p>Rating: @car.Rating ⭐</p>
+                    </div>
+                    <button class="reserve-btn" @onclick="ToggleReserveTab">
+                        <i class="fa-solid fa-square-pen"></i>
+                    </button>
+                </div>
+            }
+        }
+        else if (isApartmanFilterSelected)
+        {
+            foreach (var apartman in airbnbList)
+            {
+                <div class="result-row">
+                    <div class="result-item">
+                        <h4>@apartman.Name</h4>
+                        <p>Location: @apartman.Location</p>
+                        <p>Distance: 20 km</p> <!-- @apartman.Distance -->
+                        <p>Price: 10 per night</p> <!--  @apartman.Price -->
+                        <p>Beds: @apartman.Beds</p>
+                        <p>Rooms: @apartman.Rooms</p>
+                        <p>Rating: 4 ⭐</p> <!-- @apartman.Rating -->
+                    </div>
+                    <button class="reserve-btn" @onclick="ToggleReserveTab">
+                        <i class="fa-solid fa-square-pen"></i>
+                    </button>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Please select a category to view results.</p>
+        }
+    </div>
+</div>
+
+<div class="category-tab  @(isCategoryTabVisible ? "show" : "")">
+    <button class="car-btn" @onclick="SetCars">Cars</button>
+    <button class="apartman-btn" @onclick="SetApartman">Aparmants</button>
+</div>
+
+<div class="filter-tab  @(isFilterTabVisible ? "show" : "")">Please select a Category</div>
+
+<div class="filter-tab  @(isCarFilterVisible ? "show" : "")">
+     <div class="car-filter-row">
+            <div class="car-filter-item">
+                <label for="brands">Brands</label>
+                <select id="brands" name="brands">
+                    @foreach (var brand in models)
+                    {
+                        <option value="@brand">@brand</option>
+                    }
+                </select>
+            </div>
+            <div class="car-filter-raiting-item">
+                <label for="rating">Rating</label>
+                <select id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+
+        <label for="price">Price / Day</label>
+        <div class="price-slider">
+            <input type="number" id="min-price" class="price-input" placeholder="Min" />
+            -
+            <input type="number" id="max-price" class="price-input" placeholder="Max"/>
+        </div>
+
+        <button id="applyFilter" onclick="applyFilter()">Apply Filter</button>
+</div>
+
+<div class="filter-tab  @(isApartmanFilterVisible ? "show" : "")">
+        <div class="filter-row">
+            <div class="filter-item">
+                <label for="rooms">Rooms</label>
+                <select id="rooms">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="10+">10+</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label for="beds">Beds</label>
+                <select id="beds">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="10+">10+</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label for="rating">Rating</label>
+                <select id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+        </div>
+
+        <label for="price">Price / Night</label>
+        <div class="price-slider">
+            <input type="number" id="min-price" class="price-input" placeholder="Min" />
+            -
+            <input type="number" id="max-price" class="price-input" placeholder="Max"/>
+        </div>
+
+        <button id="applyFilter" onclick="applyFilter()">Apply Filter</button>
+</div>
+
+<div class="location-tab  @(isLocationTabVisible ? "show" : "")">
+    <input id="locationSearch" type="text" placeholder="Search for a location" />
+</div>
+
+<div class="distance-tab @(isDistanceTabVisible ? "show" : "")">
+        <input
+            type="range"
+            class="slider"
+            min="20"
+            max="100"
+            step="1"
+            value="@distance"
+            @oninput="SetDistanceFromSlider" />
+        <input
+            class="counter-input"
+            type="number"
+            value="@distance"
+            @oninput="SetDistance" />
+</div>
+
+<div class="date-tab @(isDateTabVisible ? "show" : "")">
+    <DatePicker TValue="DateTime?" @bind-Dates="@selectedDates" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range" Class="datepicker" Inline/>
+</div>
+
+<div class="reserve-tab @(isReserveTabVisible ? "show" : "")">
+    <div class="reserve-window">
+        reserve window
+        <div>
+            <DatePicker TValue="DateTime?" @bind-Dates="@reserveDate" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range" Inline/>
+        </div>
+        <button id="book" onclick="book()">Book</button>
+    </div>
+</div>
+
+@code {
+
+    private List<string> models = new List<string>{
+        "Tesla", "BMW", "Toyota", "Volkswagen"
+    };
+    private List<Car> cars = new List<Car>
+    {
+        new Car
+        {
+            CarId = Guid.NewGuid(),
+            Brand = "Tesla",
+            Model = "Model S",
+            PlateNumber = "ABC123",
+            AverageRating = 4.5M,
+            Location = "Los Angeles, CA",
+            Description = "A luxurious electric car with autopilot features.",
+            OwnerId = Guid.NewGuid(),
+            Ratings = new List<Ratings>
+            {
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 },
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 4 }
+            }
+        },
+        new Car
+        {
+            CarId = Guid.NewGuid(),
+            Brand = "Ford",
+            Model = "Mustang",
+            PlateNumber = "XYZ789",
+            AverageRating = 4.8M,
+            Location = "Miami, FL",
+            Description = "A stylish sports car for an unforgettable ride.",
+            OwnerId = Guid.NewGuid(),
+            Ratings = new List<Ratings>
+            {
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 },
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 }
+            }
+        }
+    };
+
+    private List<Airbnbs> airbnbList = new List<Airbnbs>
+    {
+        new Airbnbs
+        {
+            AirbnbId = Guid.NewGuid(),
+            Name = "Cozy Mountain Cabin",
+            Description = "A peaceful retreat in the mountains.",
+            PricePerNight = 150.00M,
+            Location = "Hungary, Debrecen Kassai út",
+            MaxGuests = 4,
+            Amenities = "WiFi, Fireplace, Hot Tub",
+            OwnerId = Guid.NewGuid(),
+            ImageUrls = new List<string>
+            {
+                "https://example.com/cabin1.jpg",
+                "https://example.com/cabin2.jpg"
+            },
+            AverageRating = 4.7M,
+            Ratings = new List<Ratings>
+            {
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 },
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 4 }
+            },
+            Timetable = new List<AirbnbBookings>
+            {
+                new AirbnbBookings
+                {
+                    BookingId = Guid.NewGuid(),
+                    UserId = Guid.NewGuid(),
+                    StartDate = DateTime.Today.AddDays(1),
+                    EndDate = DateTime.Today.AddDays(7),
+                    AirbnbId = Guid.NewGuid()
+                }
+            }
+        },
+        new Airbnbs
+        {
+            AirbnbId = Guid.NewGuid(),
+            Name = "Urban Apartment",
+            Description = "A modern apartment in the heart of the city.",
+            PricePerNight = 200.00M,
+            Location = "Hungary Debrecen, Petőfi tér",
+            MaxGuests = 2,
+            Amenities = "WiFi, Kitchen, Gym",
+            OwnerId = Guid.NewGuid(),
+            ImageUrls = new List<string>
+            {
+                "https://example.com/apartment1.jpg",
+                "https://example.com/apartment2.jpg"
+            },
+            AverageRating = 4.9M,
+            Ratings = new List<Ratings>
+            {
+                new Ratings { RatingId = Guid.NewGuid(), UserId = Guid.NewGuid(), RatingValue = 5 }
+            }
+        }
+    };
+
+    private bool isReserveTabVisible = false;
+    private void ToggleReserveTab()
+    {
+        isReserveTabVisible = !isReserveTabVisible;
+        isProfileTabVisible = false;
+        isCategoryTabVisible = false;
+        isFilterTabVisible = false;
+        isLocationTabVisible = false;
+        isDistanceTabVisible = false;
+        isDateTabVisible = false;
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+
+    }
+    private bool isCarFilterSelected = false;
+    private bool isApartmanFilterSelected = false;
+    private void SetCars()
+    {
+        isCarFilterSelected = true;
+        isApartmanFilterSelected = false;
+        ToggleFilterTab();
+    }
+
+    private void SetApartman()
+    {
+        isCarFilterSelected = false;
+        isApartmanFilterSelected = true;
+        ToggleFilterTab();
+    }
+
+    private bool isCarFilterVisible = false;
+    private bool isApartmanFilterVisible = false;
+    private bool isProfileTabVisible = false;
+    private bool isSearchTabVisible = false;
+    private bool isCategoryTabVisible = false;
+    private bool isFilterTabVisible = false;
+    private bool isLocationTabVisible = false;
+    private bool isDistanceTabVisible = false;
+    private bool isDateTabVisible = false;
+    private void ToggleCategoryTab()
+    {
+        isCategoryTabVisible = !isCategoryTabVisible;
+        isFilterTabVisible = false;
+        isLocationTabVisible = false;
+        isDistanceTabVisible = false;
+        isDateTabVisible = false;
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+        isReserveTabVisible = false;
+    }
+
+    private void ToggleFilterTab()
+    {
+        isCategoryTabVisible = false;
+        if(isApartmanFilterSelected)
+        {
+            isApartmanFilterVisible = !isApartmanFilterVisible;
+            isCarFilterVisible = false;
+            isFilterTabVisible = false;
+        }
+        else if(isCarFilterSelected)
+        {
+            isApartmanFilterVisible = false;
+            isCarFilterVisible = !isCarFilterVisible;
+            isFilterTabVisible = false;
+        }
+        else
+        {
+            isApartmanFilterVisible = false;
+            isCarFilterVisible = false;
+            isFilterTabVisible = !isFilterTabVisible;
+        }
+        isLocationTabVisible = false;
+        isDistanceTabVisible = false;
+        isDateTabVisible = false;
+        isReserveTabVisible = false;
+    }
+
+    private void ToggleLocationTab()
+    {
+        isCategoryTabVisible = false;
+        isFilterTabVisible = false;
+        isLocationTabVisible = !isLocationTabVisible;
+        isDistanceTabVisible = false;
+        isDateTabVisible = false;
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+        isReserveTabVisible = false;
+    }
+
+    private void ToggleDistanceTab()
+    {
+        isCategoryTabVisible = false;
+        isFilterTabVisible = false;
+        isLocationTabVisible = false;
+        isDistanceTabVisible = !isDistanceTabVisible;
+        isDateTabVisible = false; 
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+        isReserveTabVisible = false;
+    }
+
+    private void ToggleDateTab()
+    {
+        isCategoryTabVisible = false;
+        isFilterTabVisible = false;
+        isLocationTabVisible = false;
+        isDistanceTabVisible = false;
+        isDateTabVisible = !isDateTabVisible; 
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+        isReserveTabVisible = false;
+    }
+    private void ToggleSearchTab()
+    {
+        isSearchTabVisible = !isSearchTabVisible;
+        isCategoryTabVisible = false;
+        isFilterTabVisible = false;
+        isLocationTabVisible = false;
+        isDistanceTabVisible = false;
+        isDateTabVisible = false;
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+        isReserveTabVisible = false;
+    }
+
+    private void ToggleProfileTab()
+    {
+        isProfileTabVisible = !isProfileTabVisible;
+    }
+
+    private int distance = 0;
+
+    private void SetDistance(ChangeEventArgs e) {
+        if (int.TryParse(e.Value?.ToString(), out var newDistance)) {
+            distance = Math.Clamp(newDistance, 0, 100);
+        }
+    }
+
+    private void SetDistanceFromSlider(ChangeEventArgs e) {
+        if (int.TryParse(e.Value?.ToString(), out var newDistance)) {
+            distance = newDistance;
+        }
+    }
+
+    IReadOnlyList<DateTime?> selectedDates;
+    IReadOnlyList<DateTime?> reserveDate;
+
+    private void Logout()
+    {
+        Console.WriteLine("Logged out");
+        isProfileTabVisible = false;
+        isSearchTabVisible = false;
+        isCategoryTabVisible = false;
+        isFilterTabVisible = false;
+        isLocationTabVisible = false;
+        isDistanceTabVisible = false;
+        isDateTabVisible = false;
+        isApartmanFilterVisible = false;
+        isCarFilterVisible = false;
+        isReserveTabVisible = false;
+    }
+    private string ApiKey = "AIzaSyAzqyOnM5Wwkhq5tzxA_ziLSQZ1wEpKcWA";
+}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=@ApiKey&libraries=places&callback=initMap" async defer></script>
+<Component />
+<Component1 />
