@@ -80,4 +80,21 @@ public class CarService : ICarService
 
         return await query.ToListAsync();
     }
+
+    public async Task<bool> BookCarAsync(Guid carId, DateTime startDate, DateTime endDate, Guid userId)
+        {
+            var booking = new CarBookings
+            {
+                BookingId = Guid.NewGuid(),
+                CarId = carId,
+                StartDate = startDate,
+                EndDate = endDate,
+                UserId = userId,
+            };
+
+            _context.CarBookings.Add(booking);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
 }

@@ -108,4 +108,34 @@ public async Task<IActionResult> UploadImage(Guid id, IFormFile imageFile)
         var cars = await _CarService.GetFilteredCarsAsync(brand, rating);
         return Ok(cars);
     }
+
+      [HttpPost("book")]
+        public async Task<IActionResult> BookCar([FromBody] BookingRequestDto request)
+        {
+        try
+    {
+        if (request.StartDate >= request.EndDate)
+            return BadRequest("Invalid date range.");
+
+        var success = await _CarService.BookCarAsync(request.CarId, request.StartDate, request.EndDate, request.UserId);
+
+        if (success)
+            return Ok(new { message = "Booking successful" });
+        else
+            return StatusCode(500, new { message = "Something went wrong." });
+    }
+        catch (Exception ex)
+    {
+        Console.WriteLine($"Error while booking car: {ex.Message}");
+        return StatusCode(500, new { message = "Internal server error" });
+    }
+        }
+
+        public class BookingRequestDto
+    {
+        public Guid CarId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public Guid UserId { get; set; }
+    }
 }

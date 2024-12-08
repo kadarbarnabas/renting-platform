@@ -45,7 +45,7 @@ namespace RentingPlatform.Shared
 
         public virtual Users? Owner { get; set; }
 
-                public void AddRating(int rating, Guid userId)
+        public void AddRating(int rating, Guid userId)
         {
             if (userId == OwnerId)
                 throw new UnauthorizedAccessException("Owners cannot rate their own Cars.");
@@ -53,5 +53,25 @@ namespace RentingPlatform.Shared
             AverageRating = (AverageRating * Ratings.Count + rating) / (Ratings.Count + 1);
             Ratings.Add(new Ratings { UserId = userId, RatingValue = rating });
         }
+
+        public virtual List<CarBookings> Timetable { get; set; } = new List<CarBookings>();
+    }
+
+     public class CarBookings
+    {
+        [Key]
+        public Guid? BookingId { get; set; }
+
+        [Required]
+        public Guid? CarId { get; set; }
+
+        [Required]
+        public DateTime? StartDate { get; set; }
+
+        [Required]
+        public DateTime? EndDate { get; set; }
+
+        [Required]
+        public Guid? UserId { get; set; }
     }
 }

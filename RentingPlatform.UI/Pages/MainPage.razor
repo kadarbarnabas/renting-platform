@@ -287,6 +287,11 @@
             airbnb.Location != null &&
             airbnb.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
             .ToList();
+        
+        FilteredCars = Cars.Where(car =>
+            car.Location != null &&
+            car.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
+            .ToList();
 
         StateHasChanged(); // Refresh the UI
     }
@@ -363,7 +368,7 @@
     private bool ShowModal { get; set; } = false;
     private Car SelectedCar { get; set; }
 
-        private async Task ApplyFilter_Car()
+    private async Task ApplyFilter_Car()
     {
     {
         var queryParams = new List<string>();

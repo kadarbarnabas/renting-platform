@@ -11,5 +11,6 @@ public interface ICarService{
     Task Update(Car car);
     Task<List<string>> GetBrandsAsync();
     Task<List<Car>> GetFilteredCarsAsync(string? brand, int? rating);
+    Task<bool> BookCarAsync(Guid carId, DateTime startDate, DateTime endDate, Guid userId);
 
 }
