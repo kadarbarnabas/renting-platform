@@ -102,6 +102,9 @@ public class Ratings
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid AirbnbId { get; set; }
+
+        /*[ForeignKey(nameof(AirbnbId))]
+        public virtual Airbnbs Airbnb { get; set; }*/
         
     }
 }
