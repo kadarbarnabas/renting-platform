@@ -74,10 +74,10 @@
                         <h4>@apartman.Name</h4>
                         <p>Location: @apartman.Location</p>
                         <p>Distance: 20 km</p> <!-- @apartman.Distance -->
-                        <p>Price: 10 per night</p> <!--  @apartman.Price -->
+                        <p>Price: @apartman.PricePerNight</p> 
                         <p>Beds: @apartman.Beds</p>
                         <p>Rooms: @apartman.Rooms</p>
-                        <p>Rating: 4 ⭐</p> <!-- @apartman.Rating -->
+                        <p>Rating:@apartman.AverageRating⭐</p>
                     </div>
                     <button class="reserve-btn" @onclick="ToggleReserveTab">
                         <i class="fa-solid fa-square-pen"></i>
@@ -134,65 +134,158 @@
         <button id="applyFilter" onclick="applyFilter()">Apply Filter</button>
 </div>
 
-<div class="filter-tab  @(isApartmanFilterVisible ? "show" : "")">
-        <div class="filter-row">
-            <div class="filter-item">
-                <label for="rooms">Rooms</label>
-                <select id="rooms">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="10+">10+</option>
-                </select>
-            </div>
-            <div class="filter-item">
-                <label for="beds">Beds</label>
-                <select id="beds">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="10+">10+</option>
-                </select>
-            </div>
-            <div class="filter-item">
-                <label for="rating">Rating</label>
-                <select id="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
+<div class="filter-tab @(isApartmanFilterVisible ? "show" : "")">
+    <div class="filter-row">
+        <div class="filter-item">
+            <label for="rooms">Rooms</label>
+            <select @bind="selectedRooms">
+                <option value="-1">Any</option>
+                @for (int i = 1; i <= 10; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+                <option value="10+">10+</option>
+            </select>
         </div>
 
-        <label for="price">Price / Night</label>
-        <div class="price-slider">
-            <input type="number" id="min-price" class="price-input" placeholder="Min" />
-            -
-            <input type="number" id="max-price" class="price-input" placeholder="Max"/>
+        <div class="filter-item">
+            <label for="beds">Beds</label>
+            <select @bind="selectedBeds">
+                <option value="-1">Any</option>
+                @for (int i = 1; i <= 10; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+                <option value="10+">10+</option>
+            </select>
         </div>
 
-        <button id="applyFilter" onclick="applyFilter()">Apply Filter</button>
+        <div class="filter-item">
+            <label for="rating">Rating</label>
+            <select @bind="selectedRating">
+                <option value="-1">Any</option>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <label for="price">Price / Night</label>
+    <div class="price-slider">
+        <div>
+            <input type="range" id="min-price" min="0" max="10000" step="1" value="@minPrice" @oninput="UpdateMinPrice" />
+            <input type="number" min="0" max="10000" step="1" value="@minPrice" @oninput="SyncMinPrice" placeholder="e.g. 0" />
+        </div>
+        <div>
+            <input type="range" id="max-price" min="0" max="10000" step="1" value="@maxPrice" @oninput="UpdateMaxPrice" />
+            <input type="number" min="0" max="10000" step="1" value="@maxPrice" @oninput="SyncMaxPrice" placeholder="e.g. 10000" />
+
+            <!-- kéne egy hiba hogy name lehessen nagyobb min-price mint max-price >-->--
+        </div>
+    </div>
+
+    <button id="applyFilter"@onclick="ApplyFilter">Apply Filter</button>
+    <button id="applyFilter"@onclick="ClearFilter">Clear Filter</button>
 </div>
 
-<div class="location-tab  @(isLocationTabVisible ? "show" : "")">
-    <input id="locationSearch" type="text" placeholder="Search for a location" />
+
+@code {
+    private List<Airbnbs> allAirbnbs = new();
+    private List<Airbnbs> airbnbList = new();
+
+    
+    private List<AirbnbBookings> airbnbBookings = new List<AirbnbBookings>();
+    private decimal minPrice = 0;
+    private decimal maxPrice = 10000;
+
+    private int? selectedRooms = -1;
+    private int? selectedBeds = -1;
+    private int? selectedRating = -1;
+
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            allAirbnbs = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
+            airbnbList = allAirbnbs;
+            Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
+            FilteredCar = Cars;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void UpdateMinPrice(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var value))
+        {
+            minPrice = value;
+        }
+    }
+
+    private void UpdateMaxPrice(ChangeEventArgs e)
+    {
+        if (decimal.TryParse(e.Value?.ToString(), out var value))
+        {
+            maxPrice = value;
+        }
+    }
+
+    private void SyncMinPrice(ChangeEventArgs e) => UpdateMinPrice(e);
+    private void SyncMaxPrice(ChangeEventArgs e) => UpdateMaxPrice(e);
+
+    private void ApplyFilter()
+    {
+        airbnbList = allAirbnbs.Where(airbnb =>
+            airbnb.PricePerNight >= minPrice &&
+            airbnb.PricePerNight <= maxPrice &&
+            (selectedRooms == -1 || airbnb.Rooms >= selectedRooms) &&
+            (selectedBeds == -1 || airbnb.Beds >= selectedBeds) &&
+            (selectedRating == -1 || airbnb.AverageRating >= selectedRating)
+        ).ToList();
+    }
+
+    private void ClearFilter()
+    {
+        selectedRooms = -1;
+        selectedBeds = -1;
+        selectedRating = -1;
+        minPrice = 0;
+        maxPrice = 10000;
+        airbnbList = allAirbnbs;
+    }
+}
+
+
+<div class="location-tab @(isLocationTabVisible ? "show" : "")">
+    <input id="locationSearch" type="text" placeholder="Search for a location" @bind="searchLocation" />
+    <button id="applyFilter" @onclick="ApplyLocationFilter">Search</button>
 </div>
+
+@code {
+    private string searchLocation = ""; // The user's search input
+
+    private void ApplyLocationFilter()
+    {
+        // Filter the Airbnb list based on the search location (case-insensitive)
+        airbnbList = allAirbnbs.Where(airbnb =>
+            airbnb.Location != null &&
+            airbnb.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+
+        StateHasChanged(); // Refresh the UI
+    }
+}
 
 <div class="distance-tab @(isDistanceTabVisible ? "show" : "")">
         <input
@@ -232,19 +325,9 @@
     private string SelectedBrand = "";
     private int? SelectedRating = null;
 
-    private async Task ApplyFilter()
-    {
-        var queryParams = new List<string>();
-        if (!string.IsNullOrEmpty(SelectedBrand))
-            queryParams.Add($"brand={SelectedBrand}");
-        if (SelectedRating.HasValue)
-            queryParams.Add($"rating={SelectedRating.Value}");
 
-        var queryString = string.Join("&", queryParams);
-        FilteredCars = await Http.GetFromJsonAsync<List<Car>>($"http://localhost:8080/car/route_car/filter{queryString}");
-    }
 
-    private List<Airbnbs> airbnbList = new();
+   /* private List<Airbnbs> airbnbList = new();
     private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
@@ -266,7 +349,7 @@
         {
             isLoading = false;
         }
-    }
+    }*/
 
  private List<Car> Cars = new List<Car>();
 

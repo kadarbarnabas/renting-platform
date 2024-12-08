@@ -65,6 +65,7 @@ namespace RentingPlatform
                 existingAirbnb.PricePerNight = airbnb.PricePerNight;
                 existingAirbnb.Location = airbnb.Location;
                 existingAirbnb.Country = airbnb.Country; 
+                existingAirbnb.Timetable = airbnb.Timetable;
                 existingAirbnb.MaxGuests = airbnb.MaxGuests;
                 existingAirbnb.Amenities = airbnb.Amenities;
                 existingAirbnb.AverageRating = airbnb.AverageRating;
