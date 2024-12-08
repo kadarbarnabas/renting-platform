@@ -94,4 +94,18 @@ public async Task<IActionResult> UploadImage(Guid id, IFormFile imageFile)
     {
         return Ok(await _CarService.GetAll());
     }
+
+    [HttpGet("brands")]
+    public async Task<ActionResult<List<string>>> GetBrands()
+    {
+        var brands = await _CarService.GetBrandsAsync();
+        return Ok(brands);
+    }
+
+    [HttpGet("filter")]
+    public async Task<ActionResult<List<Car>>> GetFilteredCars(string? brand, int? rating)
+    {
+        var cars = await _CarService.GetFilteredCarsAsync(brand, rating);
+        return Ok(cars);
+    }
 }

@@ -33,6 +33,9 @@ namespace RentingPlatform.Shared
         [Required]
         public string Location { get; set; }
 
+        [Required]
+        public int Price {get; set; } = 0;
+
         [MaxLength(800)]
         public string Description { get; set; }
         

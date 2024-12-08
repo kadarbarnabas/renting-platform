@@ -48,15 +48,16 @@
     <div class="results-container">
         @if (isCarFilterSelected)
         {
-            foreach (var car in Cars)
+            foreach (var car in FilteredCars)
             {
                 <div class="result-row">
                     <div class="result-item">
                         <h4>@car.Brand</h4>
+                        <h3>@car.Model</h3>
                         <p>Location: @car.Location</p>
                         <p>Distance: 20 km</p> <!-- @car.Distance -->
-                        <p>Price: 1000 </p> <!-- @car.Price -->
-                        <p>Rating: @car.Rating ⭐</p>
+                        <p>Price:  @car.Price </p> <!-- @car.Price -->
+                        <p>Rating: @car.AverageRating ⭐</p>
                     </div>
                     <button class="reserve-btn" @onclick="ToggleReserveTab">
                         <i class="fa-solid fa-square-pen"></i>
@@ -100,25 +101,27 @@
 
 <div class="filter-tab  @(isCarFilterVisible ? "show" : "")">
      <div class="car-filter-row">
-            <div class="car-filter-item">
-                <label for="brands">Brands</label>
-                <select id="brands" name="brands">
-                    @foreach (var brand in models)
-                    {
-                        <option value="@brand">@brand</option>
-                    }
-                </select>
-            </div>
-            <div class="car-filter-raiting-item">
-                <label for="rating">Rating</label>
-                <select id="rating">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
+<div class="filter-section">
+    <label for="brand-select">Brands</label>
+    <select id="brand-select" @bind="SelectedBrand">
+        <option value=""></option>
+        @foreach (var brand in AvailableBrands)
+        {
+            <option value="@brand">@brand</option>
+        }
+    </select>
+
+    <label for="rating-select">Rating</label>
+    <select id="rating-select" @bind="SelectedRating">
+        <option value="">All Ratings</option>
+        @for (int i = 1; i <= 5; i++)
+        {
+            <option value="@i">@i</option>
+        }
+    </select>
+
+    <button id="applyFilter" @onclick="ApplyFilter">Apply Filter</button>
+</div>
         </div>
 
         <label for="price">Price / Day</label>
@@ -223,6 +226,24 @@
 
 
 @code {
+
+    private List<Car> FilteredCars = new();
+    private List<string> AvailableBrands = new();
+    private string SelectedBrand = "";
+    private int? SelectedRating = null;
+
+    private async Task ApplyFilter()
+    {
+        var queryParams = new List<string>();
+        if (!string.IsNullOrEmpty(SelectedBrand))
+            queryParams.Add($"brand={SelectedBrand}");
+        if (SelectedRating.HasValue)
+            queryParams.Add($"rating={SelectedRating.Value}");
+
+        var queryString = string.Join("&", queryParams);
+        FilteredCars = await Http.GetFromJsonAsync<List<Car>>($"http://localhost:8080/car/route_car/filter{queryString}");
+    }
+
     private List<Airbnbs> airbnbList = new();
     private bool isLoading = true;
 
@@ -232,7 +253,10 @@
         {
             airbnbList = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
             Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
-            FilteredCar = Cars;
+            FilteredCars = Cars;
+
+            AvailableBrands = await Http.GetFromJsonAsync<List<string>>("http://localhost:8080/car/route_car/brands");
+            //FilteredCars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
         }
         catch (Exception ex)
         {
@@ -250,20 +274,6 @@
     private List<Car> FilteredCar { get; set; }
     private bool ShowModal { get; set; } = false;
     private Car SelectedCar { get; set; }
-
-    private void OnKeyPress(KeyboardEventArgs e)
-    {
-        if (e.Key == "Enter")
-        {
-            if (SearchTerm.Length >= 3 || string.IsNullOrEmpty(SearchTerm))
-            {
-                FilteredCar = Cars
-                    .Where(car => car.Brand.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-                                   car.Model.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-            }
-        }
-    }
 
      private void OpenOptionsModal(Car car, MouseEventArgs e)
     {

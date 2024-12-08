@@ -51,7 +51,33 @@ public class CarService : ICarService
         car.PlateNumber = updatedCar.PlateNumber;
         car.Description = updatedCar.Description;
         car.Image = updatedCar.Image;
+        car.Price = updatedCar.Price;
         await _context.SaveChangesAsync();
         _logger.LogInformation("{Car} has been updated", car);
+    }
+
+    public async Task<List<string>> GetBrandsAsync()
+    {
+        return await _context.Cars
+            .Select(c => c.Brand)
+            .Distinct()
+            .ToListAsync();
+    }
+
+    public async Task<List<Car>> GetFilteredCarsAsync(string? brand, int? rating)
+    {
+        var query = _context.Cars.AsQueryable();
+
+        if (!string.IsNullOrEmpty(brand))
+        {
+            query = query.Where(c => c.Brand == brand);
+        }
+
+        if (rating.HasValue)
+        {
+            query = query.Where(c => c.AverageRating >= rating.Value);
+        }
+
+        return await query.ToListAsync();
     }
 }

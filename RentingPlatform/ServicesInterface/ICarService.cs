@@ -9,5 +9,7 @@ public interface ICarService{
     Task<Car> Get(Guid id);
     Task<List<Car>> GetAll();
     Task Update(Car car);
+    Task<List<string>> GetBrandsAsync();
+    Task<List<Car>> GetFilteredCarsAsync(string? brand, int? rating);
 
 }
