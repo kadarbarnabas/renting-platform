@@ -48,6 +48,7 @@
     <div class="results-container">
         @if (isCarFilterSelected)
         {
+    
             foreach (var car in FilteredCars)
             {
                 <div class="result-row">
@@ -120,7 +121,6 @@
         }
     </select>
 
-    <button id="applyFilter" @onclick="ApplyFilter">Apply Filter</button>
 </div>
         </div>
 
@@ -131,7 +131,8 @@
             <input type="number" id="max-price" class="price-input" placeholder="Max"/>
         </div>
 
-        <button id="applyFilter" onclick="applyFilter()">Apply Filter</button>
+        <button id="applyFilter" @onclick="ApplyFilter_Car">Apply Filter</button>
+        <button id="applyFilter" @onclick="ClearFilter_Car">Clear Filter</button>
 </div>
 
 <div class="filter-tab @(isApartmanFilterVisible ? "show" : "")">
@@ -213,6 +214,7 @@
             allAirbnbs = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
             airbnbList = allAirbnbs;
             Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
+            AvailableBrands = await Http.GetFromJsonAsync<List<string>>("http://localhost:8080/car/route_car/brands");
             FilteredCar = Cars;
         }
         catch (Exception ex)
@@ -358,6 +360,38 @@
     private bool ShowModal { get; set; } = false;
     private Car SelectedCar { get; set; }
 
+        private async Task ApplyFilter_Car()
+    {
+    {
+        var queryParams = new List<string>();
+        if (!string.IsNullOrEmpty(SelectedBrand))
+            queryParams.Add($"brand={SelectedBrand}");
+        if (SelectedRating.HasValue)
+            queryParams.Add($"rating={SelectedRating.Value}");
+
+        var queryString = queryParams.Any() ? "?" + string.Join("&", queryParams) : "";
+
+        try
+        {
+            FilteredCars = await Http.GetFromJsonAsync<List<Car>>($"http://localhost:8080/car/route_car/filter{queryString}");
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Failed to fetch filtered cars: {ex.Message}");
+        }
+    }
+    }
+
+    private void ClearFilter_Car()
+    {
+        SelectedBrand = "";
+        selectedBeds = -1;
+        selectedRating = -1;
+        minPrice = 0;
+        maxPrice = 10000;
+        FilteredCar = Cars;
+    }
+
      private void OpenOptionsModal(Car car, MouseEventArgs e)
     {
         if (ShowModal && SelectedCar == car)
@@ -383,10 +417,10 @@
     }
 
 
-    private List<string> models = new List<string>{
+/*    private List<string> models = new List<string>{
         "Tesla", "BMW", "Toyota", "Volkswagen"
     };
-/*    private List<Car> cars = new List<Car>
+    private List<Car> cars = new List<Car>
     {
         new Car
         {
