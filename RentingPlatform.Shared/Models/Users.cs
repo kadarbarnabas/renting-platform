@@ -24,6 +24,6 @@ namespace RentingPlatform.Shared
 
         public string Picture { get; set; }
 
-        public List<DateTime> dates { get; set; }
+        public List<DateTime> dates { get; set; } = new List<DateTime>();
     }
 }
