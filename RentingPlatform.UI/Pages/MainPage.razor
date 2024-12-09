@@ -400,32 +400,33 @@ private async Task Book()
                 if (message == "Car is already booked for the selected dates.")
                 {
                     Console.WriteLine("The car is already booked.");
+                    return;
                 }
             }
         }
         else
-            {
-            Console.WriteLine("Az időszak szabad, menthető a foglalás.");
-            }
+        {
+            Console.WriteLine("The car appears to be free; proceeding to save the booking.");
+        }
 
-                    var bookingRequest = new CarBookings
-            {
-                StartDate = startDate,
-                EndDate = endDate,
-                CarId = SelectedCar.CarId,
-                UserId = SelectedCar.CarId // Bejelentkezett felhasználó ID
-            };
-        /*
-            var bookingResponse = await Http.PostAsJsonAsync("http://localhost:8080/car/route_car/book", bookingRequest);
+        var bookingRequest = new CarBookings
+        {
+            StartDate = startDate,
+            EndDate = endDate,
+            CarId = SelectedCar.CarId,
+            UserId = GetLoggedInUserId() // Bejelentkezett felhasználó ID
+        };
+        
+        var bookingResponse = await Http.PostAsJsonAsync("http://localhost:8080/car/route_car/book", bookingRequest);
         
         if (bookingResponse.IsSuccessStatusCode)
-            {
-                Console.WriteLine("Foglalás sikeresen mentve az adatbázisba.");
-            }
+        {
+            Console.WriteLine("Booking successfully saved to the database.");
+        }
         else
-            {
-                Console.WriteLine($"Foglalás sikertelen. Státuszkód: {bookingResponse.StatusCode}");
-            }*/
+        {
+            Console.WriteLine($"Booking failed. HTTP Status: {bookingResponse.StatusCode}");
+        }
 
 
         
@@ -434,6 +435,12 @@ private async Task Book()
     {
         Console.WriteLine($"Hiba történt a foglalás mentése során: {ex.Message}");
     }
+}
+
+    private Guid GetLoggedInUserId()
+{
+    // Replace this logic with the actual user authentication logic
+    return Guid.Parse("11111111-1111-1111-1111-111111111111"); 
 }
 
 
