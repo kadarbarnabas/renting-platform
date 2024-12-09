@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentingPlatform;
 
@@ -10,9 +11,11 @@ using RentingPlatform;
 namespace RentingPlatform.Migrations
 {
     [DbContext(typeof(RentingPlatformContext))]
-    partial class RentingPlatformContextModelSnapshot : ModelSnapshot
+    [Migration("20241209013532_AddPictureColumnToUser")]
+    partial class AddPictureColumnToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,35 +160,6 @@ namespace RentingPlatform.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("RentingPlatform.Shared.CarBookings", b =>
-                {
-                    b.Property<Guid?>("BookingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("CarId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("EndDate")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("StartDate")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("UserId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("BookingId");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("CarBookings");
-                });
-
             modelBuilder.Entity("RentingPlatform.Shared.Ratings", b =>
                 {
                     b.Property<Guid>("RatingId")
@@ -238,10 +212,6 @@ namespace RentingPlatform.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("dates")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("UserId");
 
                     b.ToTable("User");
@@ -274,15 +244,6 @@ namespace RentingPlatform.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("RentingPlatform.Shared.CarBookings", b =>
-                {
-                    b.HasOne("RentingPlatform.Shared.Car", null)
-                        .WithMany("Timetable")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("RentingPlatform.Shared.Ratings", b =>
                 {
                     b.HasOne("RentingPlatform.Shared.Airbnbs", null)
@@ -304,8 +265,6 @@ namespace RentingPlatform.Migrations
             modelBuilder.Entity("RentingPlatform.Shared.Car", b =>
                 {
                     b.Navigation("Ratings");
-
-                    b.Navigation("Timetable");
                 });
 #pragma warning restore 612, 618
         }

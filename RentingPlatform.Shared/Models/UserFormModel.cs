@@ -1,19 +1,9 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 
 namespace RentingPlatform.Shared
 {
-    public class Users
+    public class UserFormModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid UserId { get; set; }
-
-        //Optional
-        public string Name { get; set; }
-
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
@@ -22,8 +12,10 @@ namespace RentingPlatform.Shared
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters")]
         public string Password { get; set; }
 
-        public string Picture { get; set; }
+        // For registration only
+        public string Name { get; set; }
 
-        public List<DateTime> dates { get; set; }
+        [Compare("Password", ErrorMessage = "Passwords must match")]
+        public string ConfirmPassword { get; set; }
     }
 }

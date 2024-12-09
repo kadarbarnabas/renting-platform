@@ -1,21 +1,38 @@
-@page "/"
-@using System.Text.Json
+@page "/{id:guid}"
 @inject HttpClient Http
-@inject GoogleService GoogleService
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
 
 <div id="map" style="width: 100%; height: 100vh;"></div>
 
-<div class="profile-circle-button" @onclick="ToggleProfileTab">
-    <span class="profile-icon">P</span>
+<div class="profile-circle-button" @onclick="ToggleProfileTab" 
+     style="@GetBackgroundImageStyle()">
+    @if (string.IsNullOrEmpty(userProfilePictureUrl))
+    {
+        <span class="profile-icon">P</span>
+    }
 </div>
 
-<div class="profile-tab @(isProfileTabVisible ? "show" : "")">
+<div class="profile-tab-user @(isProfileTabVisible ? "show" : "")">
     <div class="profile-header @(isProfileTabVisible ? "slide-in" : "")">
-        <h3>@($"Please login")</h3>
+        @if (!string.IsNullOrEmpty(userName))
+        {
+            <h3>@($"Hi {userName}")</h3>
+        }
+        else
+        {
+            <h3>@($"Please login")</h3>
+        }
     </div>
     <div class="profile-details @(isProfileTabVisible ? "slide-in" : "")">
-        <button class="logout-btn" @onclick="LoginWithGoogle">
-            <i class="fas fa-sign-out-alt"></i> Login with Google
+        <button class="cal-btn">
+            <i class="fas fa-calendar-alt"></i> Calendar
+        </button>
+        <button class="tab-btn">
+            <i class="fas fa-user"></i> Profile Details
+        </button>
+        <button class="logout-btn" @onclick="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
         </button>
     </div>
 </div>
@@ -24,16 +41,23 @@
 
     [Parameter] 
     public Guid Id { get; set; }
-
     private bool isProfileTabVisible = false;
+    
+    private Users currentUser = new Users();
+    private string userName;
+    private string userProfilePictureUrl;
 
-    private void ToggleProfileTab()
+    private string GetBackgroundImageStyle()
     {
-        isProfileTabVisible = !isProfileTabVisible;
+        if (!string.IsNullOrEmpty(userProfilePictureUrl))
+        {
+            return $"background-image: url('{userProfilePictureUrl}'); background-size: cover; background-position: center;";
+        }
+        return string.Empty; // Default background if no picture URL
     }
-
-    private async Task LoginWithGoogle()
+    private async Task Logout()
     {
+        // Clear the user's authentication session
         isProfileTabVisible = false;
         isSearchTabVisible = false;
         isCategoryTabVisible = false;
@@ -44,9 +68,15 @@
         isApartmanFilterVisible = false;
         isCarFilterVisible = false;
         isReserveTabVisible = false;
-
-        await GoogleService.LoginWithGoogleDirectly();
+         NavigationManager.NavigateTo("/");
     }
+
+    private void ToggleProfileTab()
+    {
+        isProfileTabVisible = !isProfileTabVisible;
+    }
+
+
 }
 
 <div class="search-circle-button" @onclick="ToggleSearchTab">S</div>
@@ -79,7 +109,7 @@
             foreach (var car in FilteredCars)
             {
                 <div class="result-row">
-                    <div class="result-item" @onclick="() => SelectCar(car)">
+                    <div class="result-item">
                         <h4>@car.Brand</h4>
                         <h3>@car.Model</h3>
                         <p>Location: @car.Location</p>
@@ -132,7 +162,7 @@
 <div class="filter-section">
     <label for="brand-select">Brands</label>
     <select id="brand-select" @bind="SelectedBrand">
-        <option value="">All Brands</option>
+        <option value=""></option>
         @foreach (var brand in AvailableBrands)
         {
             <option value="@brand">@brand</option>
@@ -234,24 +264,20 @@
 
     private bool isLoading = true;
 
-    private async Task<DateTime?[]> FetchDisabledDatesAsync()
-{
-    var response = await Http.GetFromJsonAsync<DateTime[]>("http://localhost:8080/car/route_car/check-bookings");
-    return response?.Select(d => (DateTime?)d).ToArray() ?? Array.Empty<DateTime?>();
-}
-
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            currentUser = await UserService.GetUserAsync(Id);
+
+            userName = currentUser.Name.Split(" ")[0];
+            userProfilePictureUrl = currentUser.Picture;
+
             allAirbnbs = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
             airbnbList = allAirbnbs;
-
-            Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
-            FilteredCars = Cars;
             Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
             AvailableBrands = await Http.GetFromJsonAsync<List<string>>("http://localhost:8080/car/route_car/brands");
-            FilteredCars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");
+            FilteredCar = Cars;
         }
         catch (Exception ex)
         {
@@ -320,11 +346,6 @@
             airbnb.Location != null &&
             airbnb.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
             .ToList();
-        
-        FilteredCars = Cars.Where(car =>
-            car.Location != null &&
-            car.Location.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))
-            .ToList();
 
         StateHasChanged(); // Refresh the UI
     }
@@ -346,150 +367,28 @@
             @oninput="SetDistance" />
 </div>
 
+<div class="date-tab @(isDateTabVisible ? "show" : "")">
+    <DatePicker TValue="DateTime?" @bind-Dates="@selectedDates" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range" Class="datepicker" Inline/>
+</div>
+
 <div class="reserve-tab @(isReserveTabVisible ? "show" : "")">
     <div class="reserve-window">
         reserve window
         <div>
             <DatePicker TValue="DateTime?" @bind-Dates="@reserveDate" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range" Inline/>
         </div>
-        <button id="book" @onclick="Book">Book</button>
+        <button id="book" onclick="book()">Book</button>
     </div>
 </div>
 
 
 @code {
 
-
-    private List<(DateTime StartDate, DateTime EndDate)> bookedDates = new List<(DateTime, DateTime)>();
-
-    private bool IsDateDisabled(DateTime date)
-    {
-    foreach (var interval in bookedDates)
-    {
-        if (date >= interval.StartDate && date <= interval.EndDate)
-        {
-            return true; // Ha a dátum az adott tartományon belül van, akkor disabled
-        }
-    }
-    return false; // Ellenkező esetben választható
-    }
-
     private List<Car> FilteredCars = new();
     private List<string> AvailableBrands = new();
     private string SelectedBrand = "";
     private int? SelectedRating = null;
 
-private async Task Book()
-{
-    if (SelectedCar == null)
-    {
-        Console.WriteLine("No car selected.");
-        return;
-    }
-
-    if (reserveDate?.Count != 2)
-    {
-        Console.WriteLine("Kérlek válaszd ki a kezdő és záró dátumot!");
-        return;
-    }
-
-    var startDate = reserveDate[0];
-    var endDate = reserveDate[1];
-
-    if (!startDate.HasValue || !endDate.HasValue || startDate >= endDate)
-    {
-        Console.WriteLine("Érvénytelen dátumok.");
-        return;
-    }
-
-    var bookingCheckRequest = new CarBookings
-    {
-        CarId = SelectedCar.CarId,
-        StartDate = startDate.Value,
-        EndDate = endDate.Value,
-        UserId = SelectedCar.CarId // Ez legyen a bejelentkezett felhasználó azonosítója
-    };
-
-    try
-    {
-        // Ellenőrizzük, hogy az autó már foglalva van-e az adott időszakra
-        var response = await Http.PostAsJsonAsync("http://localhost:8080/car/route_car/check-booking", bookingCheckRequest);
-        
-        if (response.IsSuccessStatusCode)
-        {
-                var jsonString = await response.Content.ReadAsStringAsync();
-                var jsonDoc = JsonDocument.Parse(jsonString);
-
-            if (jsonDoc.RootElement.TryGetProperty("message", out var messageElement))
-            {
-                var message = messageElement.GetString();
-                if (message == "Car is already booked for the selected dates.")
-                {
-                    Console.WriteLine("The car is already booked.");
-                    return;
-                }
-            }
-        }
-        else
-        {
-            Console.WriteLine("The car appears to be free; proceeding to save the booking.");
-        }
-
-        var bookingRequest = new CarBookings
-        {
-            StartDate = startDate,
-            EndDate = endDate,
-            CarId = SelectedCar.CarId,
-            UserId = GetLoggedInUserId() // Bejelentkezett felhasználó ID
-        };
-        
-        var bookingResponse = await Http.PostAsJsonAsync("http://localhost:8080/car/route_car/book", bookingRequest);
-        
-        if (bookingResponse.IsSuccessStatusCode)
-        {
-            Console.WriteLine("Booking successfully saved to the database.");
-        }
-        else
-        {
-            Console.WriteLine($"Booking failed. HTTP Status: {bookingResponse.StatusCode}");
-        }
-
-
-        
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"Hiba történt a foglalás mentése során: {ex.Message}");
-    }
-}
-
-    private Guid GetLoggedInUserId()
-{
-    // Replace this logic with the actual user authentication logic
-    return Guid.Parse("11111111-1111-1111-1111-111111111111"); 
-}
-
-
-    private DateTime?[] disabledDates = Array.Empty<DateTime?>();
-    public class BookingCheckRequest
-    {
-        public Guid CarId { get; set; }
-    }
-
-    // BookingPeriod should match your API response structure
-    public class BookingPeriod
-    {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-    }
-
-private void SelectCar(Car car)
-{
-    SelectedCar = car;
-    Console.WriteLine($"Selected Car: {SelectedCar.Brand} {SelectedCar.Model}");
-    // Ha a foglalási ablakot is szeretnéd megnyitni:
-    //isReserveTabVisible = true;
-}
 
 
    /* private List<Airbnbs> airbnbList = new();
@@ -523,7 +422,7 @@ private void SelectCar(Car car)
     private bool ShowModal { get; set; } = false;
     private Car SelectedCar { get; set; }
 
-    private async Task ApplyFilter_Car()
+        private async Task ApplyFilter_Car()
     {
     {
         var queryParams = new List<string>();
@@ -578,6 +477,7 @@ private void SelectCar(Car car)
             ShowModal = false;
         }
     }
+
 
 /*    private List<string> models = new List<string>{
         "Tesla", "BMW", "Toyota", "Volkswagen"
