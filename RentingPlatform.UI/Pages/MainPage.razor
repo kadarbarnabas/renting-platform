@@ -1,4 +1,5 @@
 @page "/"
+@using System.Text.Json
 @inject HttpClient Http
 
 <div id="map" style="width: 100%; height: 100vh;"></div>
@@ -52,7 +53,7 @@
             foreach (var car in FilteredCars)
             {
                 <div class="result-row">
-                    <div class="result-item">
+                    <div class="result-item" @onclick="() => SelectCar(car)">
                         <h4>@car.Brand</h4>
                         <h3>@car.Model</h3>
                         <p>Location: @car.Location</p>
@@ -207,6 +208,12 @@
 
     private bool isLoading = true;
 
+    private async Task<DateTime?[]> FetchDisabledDatesAsync()
+{
+    var response = await Http.GetFromJsonAsync<DateTime[]>("http://localhost:8080/car/route_car/check-bookings");
+    return response?.Select(d => (DateTime?)d).ToArray() ?? Array.Empty<DateTime?>();
+}
+
     protected override async Task OnInitializedAsync()
     {
         try
@@ -313,28 +320,143 @@
             @oninput="SetDistance" />
 </div>
 
-<div class="date-tab @(isDateTabVisible ? "show" : "")">
-    <DatePicker TValue="DateTime?" @bind-Dates="@selectedDates" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range" Class="datepicker" Inline/>
-</div>
-
 <div class="reserve-tab @(isReserveTabVisible ? "show" : "")">
     <div class="reserve-window">
         reserve window
         <div>
             <DatePicker TValue="DateTime?" @bind-Dates="@reserveDate" InputMode="DateInputMode.Date" SelectionMode="DateInputSelectionMode.Range" Inline/>
         </div>
-        <button id="book" onclick="book()">Book</button>
+        <button id="book" @onclick="Book">Book</button>
     </div>
 </div>
 
 
 @code {
 
+
+    private List<(DateTime StartDate, DateTime EndDate)> bookedDates = new List<(DateTime, DateTime)>();
+
+    private bool IsDateDisabled(DateTime date)
+    {
+    foreach (var interval in bookedDates)
+    {
+        if (date >= interval.StartDate && date <= interval.EndDate)
+        {
+            return true; // Ha a dátum az adott tartományon belül van, akkor disabled
+        }
+    }
+    return false; // Ellenkező esetben választható
+    }
+
     private List<Car> FilteredCars = new();
     private List<string> AvailableBrands = new();
     private string SelectedBrand = "";
     private int? SelectedRating = null;
 
+private async Task Book()
+{
+    if (SelectedCar == null)
+    {
+        Console.WriteLine("No car selected.");
+        return;
+    }
+
+    if (reserveDate?.Count != 2)
+    {
+        Console.WriteLine("Kérlek válaszd ki a kezdő és záró dátumot!");
+        return;
+    }
+
+    var startDate = reserveDate[0];
+    var endDate = reserveDate[1];
+
+    if (!startDate.HasValue || !endDate.HasValue || startDate >= endDate)
+    {
+        Console.WriteLine("Érvénytelen dátumok.");
+        return;
+    }
+
+    var bookingCheckRequest = new CarBookings
+    {
+        CarId = SelectedCar.CarId,
+        StartDate = startDate.Value,
+        EndDate = endDate.Value,
+        UserId = SelectedCar.CarId // Ez legyen a bejelentkezett felhasználó azonosítója
+    };
+
+    try
+    {
+        // Ellenőrizzük, hogy az autó már foglalva van-e az adott időszakra
+        var response = await Http.PostAsJsonAsync("http://localhost:8080/car/route_car/check-booking", bookingCheckRequest);
+        
+        if (response.IsSuccessStatusCode)
+        {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                var jsonDoc = JsonDocument.Parse(jsonString);
+
+            if (jsonDoc.RootElement.TryGetProperty("message", out var messageElement))
+            {
+                var message = messageElement.GetString();
+                if (message == "Car is already booked for the selected dates.")
+                {
+                    Console.WriteLine("The car is already booked.");
+                }
+            }
+        }
+        else
+            {
+            Console.WriteLine("Az időszak szabad, menthető a foglalás.");
+            }
+
+                    var bookingRequest = new CarBookings
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                CarId = SelectedCar.CarId,
+                UserId = SelectedCar.CarId // Bejelentkezett felhasználó ID
+            };
+        /*
+            var bookingResponse = await Http.PostAsJsonAsync("http://localhost:8080/car/route_car/book", bookingRequest);
+        
+        if (bookingResponse.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Foglalás sikeresen mentve az adatbázisba.");
+            }
+        else
+            {
+                Console.WriteLine($"Foglalás sikertelen. Státuszkód: {bookingResponse.StatusCode}");
+            }*/
+
+
+        
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Hiba történt a foglalás mentése során: {ex.Message}");
+    }
+}
+
+
+    private DateTime?[] disabledDates = Array.Empty<DateTime?>();
+    public class BookingCheckRequest
+    {
+        public Guid CarId { get; set; }
+    }
+
+    // BookingPeriod should match your API response structure
+    public class BookingPeriod
+    {
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+    }
+
+private void SelectCar(Car car)
+{
+    SelectedCar = car;
+    Console.WriteLine($"Selected Car: {SelectedCar.Brand} {SelectedCar.Model}");
+    // Ha a foglalási ablakot is szeretnéd megnyitni:
+    //isReserveTabVisible = true;
+}
 
 
    /* private List<Airbnbs> airbnbList = new();
@@ -423,7 +545,6 @@
             ShowModal = false;
         }
     }
-
 
 /*    private List<string> models = new List<string>{
         "Tesla", "BMW", "Toyota", "Volkswagen"

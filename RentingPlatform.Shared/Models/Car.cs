@@ -54,7 +54,7 @@ namespace RentingPlatform.Shared
             Ratings.Add(new Ratings { UserId = userId, RatingValue = rating });
         }
 
-        public virtual List<CarBookings> Timetable { get; set; } = new List<CarBookings>();
+        public virtual List<CarBookings>? Timetable { get; set; } = new List<CarBookings>();
     }
 
      public class CarBookings

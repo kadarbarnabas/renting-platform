@@ -109,8 +109,8 @@ public async Task<IActionResult> UploadImage(Guid id, IFormFile imageFile)
         return Ok(cars);
     }
 
-      [HttpPost("book")]
-        public async Task<IActionResult> BookCar([FromBody] BookingRequestDto request)
+    [HttpPost("book")]
+    public async Task<IActionResult> BookCar([FromBody] BookingRequest request)
         {
         try
     {
@@ -131,11 +131,80 @@ public async Task<IActionResult> UploadImage(Guid id, IFormFile imageFile)
     }
         }
 
-        public class BookingRequestDto
+        public class BookingRequest
     {
         public Guid CarId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public Guid UserId { get; set; }
     }
+
+    [HttpPost("check-booking")]
+public async Task<IActionResult> CheckCarBooking([FromBody] BookingRequest request)
+{
+    try
+    {
+        var isBooked = await _CarService.GetBookings(request.CarId, request.StartDate, request.EndDate, request.UserId);
+
+        if (isBooked)
+        {
+            return Ok(new { message = "Car is already booked for the selected dates." });
+        }
+        else
+        {
+            return Ok(new { message = "Car is available for booking." });
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error during booking check: {ex.Message}");
+        return StatusCode(500, new { message = "Internal server error" });
+    }
+}
+
+[HttpPost("check-bookings")]
+public async Task<IActionResult> GetBookingsForCar([FromBody] BookingCheckRequest request)
+{
+    try
+    {
+        var bookings = await _CarService.GetBookingsForCarAsync(request.CarId);
+        
+        // Visszaadjuk a foglalások időszakait
+        return Ok(bookings);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error fetching bookings: {ex.Message}");
+        return StatusCode(500, new { message = "Internal server error" });
+    }
+}
+
+public class BookingCheckRequest
+{
+    public Guid CarId { get; set; }
+}
+
+[HttpDelete("delete-booking/{bookingId:guid}")]
+public async Task<IActionResult> DeleteBooking(Guid bookingId)
+{
+    try
+    {
+        var success = await _CarService.DeleteBookingAsync(bookingId);
+
+        if (success)
+        {
+            return Ok(new { message = "Booking deleted successfully." });
+        }
+        else
+        {
+            return NotFound(new { message = "Booking not found." });
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error deleting booking: {ex.Message}");
+        return StatusCode(500, new { message = "Internal server error." });
+    }
+}
+
 }
