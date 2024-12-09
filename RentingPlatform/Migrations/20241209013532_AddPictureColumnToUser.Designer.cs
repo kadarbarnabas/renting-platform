@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentingPlatform;
 
@@ -10,9 +11,11 @@ using RentingPlatform;
 namespace RentingPlatform.Migrations
 {
     [DbContext(typeof(RentingPlatformContext))]
-    partial class RentingPlatformContextModelSnapshot : ModelSnapshot
+    [Migration("20241209013532_AddPictureColumnToUser")]
+    partial class AddPictureColumnToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,10 +209,6 @@ namespace RentingPlatform.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Picture")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("dates")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

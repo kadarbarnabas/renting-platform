@@ -16,7 +16,7 @@
         z-index: 10;
     }
 
-    .profile-tab {
+    .profile-tab, .profile-tab-user {
         position: absolute;
         top: 20px;
         right: 20px;
@@ -32,6 +32,11 @@
 
     .profile-tab.show {
         width: 270px;
+        height: 135px;
+    }
+
+    .profile-tab-user.show{
+        width: 270px;
         height: 240px;
     }
 
@@ -46,6 +51,11 @@
     .profile-header.slide-in {
         opacity: 1;
         transform: translateX(0);
+    }
+
+    .profile-header h3{
+        font-size: 23px;
+        margin-top: 5px;
     }
 
     .profile-details {

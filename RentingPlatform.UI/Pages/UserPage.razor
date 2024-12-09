@@ -1,20 +1,38 @@
-@page "/"
+@page "/{id:guid}"
 @inject HttpClient Http
-@inject GoogleService GoogleService
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
 
 <div id="map" style="width: 100%; height: 100vh;"></div>
 
-<div class="profile-circle-button" @onclick="ToggleProfileTab">
-    <span class="profile-icon">P</span>
+<div class="profile-circle-button" @onclick="ToggleProfileTab" 
+     style="@GetBackgroundImageStyle()">
+    @if (string.IsNullOrEmpty(userProfilePictureUrl))
+    {
+        <span class="profile-icon">P</span>
+    }
 </div>
 
-<div class="profile-tab @(isProfileTabVisible ? "show" : "")">
+<div class="profile-tab-user @(isProfileTabVisible ? "show" : "")">
     <div class="profile-header @(isProfileTabVisible ? "slide-in" : "")">
-        <h3>@($"Please login")</h3>
+        @if (!string.IsNullOrEmpty(userName))
+        {
+            <h3>@($"Hi {userName}")</h3>
+        }
+        else
+        {
+            <h3>@($"Please login")</h3>
+        }
     </div>
     <div class="profile-details @(isProfileTabVisible ? "slide-in" : "")">
-        <button class="logout-btn" @onclick="LoginWithGoogle">
-            <i class="fas fa-sign-out-alt"></i> Login with Google
+        <button class="cal-btn">
+            <i class="fas fa-calendar-alt"></i> Calendar
+        </button>
+        <button class="tab-btn">
+            <i class="fas fa-user"></i> Profile Details
+        </button>
+        <button class="logout-btn" @onclick="Logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
         </button>
     </div>
 </div>
@@ -23,16 +41,23 @@
 
     [Parameter] 
     public Guid Id { get; set; }
-
     private bool isProfileTabVisible = false;
+    
+    private Users currentUser = new Users();
+    private string userName;
+    private string userProfilePictureUrl;
 
-    private void ToggleProfileTab()
+    private string GetBackgroundImageStyle()
     {
-        isProfileTabVisible = !isProfileTabVisible;
+        if (!string.IsNullOrEmpty(userProfilePictureUrl))
+        {
+            return $"background-image: url('{userProfilePictureUrl}'); background-size: cover; background-position: center;";
+        }
+        return string.Empty; // Default background if no picture URL
     }
-
-    private async Task LoginWithGoogle()
+    private async Task Logout()
     {
+        // Clear the user's authentication session
         isProfileTabVisible = false;
         isSearchTabVisible = false;
         isCategoryTabVisible = false;
@@ -43,9 +68,15 @@
         isApartmanFilterVisible = false;
         isCarFilterVisible = false;
         isReserveTabVisible = false;
-
-        await GoogleService.LoginWithGoogleDirectly();
+         NavigationManager.NavigateTo("/");
     }
+
+    private void ToggleProfileTab()
+    {
+        isProfileTabVisible = !isProfileTabVisible;
+    }
+
+
 }
 
 <div class="search-circle-button" @onclick="ToggleSearchTab">S</div>
@@ -237,6 +268,11 @@
     {
         try
         {
+            currentUser = await UserService.GetUserAsync(Id);
+
+            userName = currentUser.Name.Split(" ")[0];
+            userProfilePictureUrl = currentUser.Picture;
+
             allAirbnbs = await Http.GetFromJsonAsync<List<Airbnbs>>("http://localhost:8080/airbnb/asd");
             airbnbList = allAirbnbs;
             Cars = await Http.GetFromJsonAsync<List<Car>>("http://localhost:8080/car/route_car");

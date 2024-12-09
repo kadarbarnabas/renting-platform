@@ -1,85 +1,88 @@
 using RentingPlatform.Shared;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RentingPlatform.Controllers;
-
-[ApiController]
-[Route("[controller]")]
-public class UsersController : ControllerBase
+namespace RentingPlatform.Controllers
 {
-    private readonly IUsersService _userService;
-
-    public UsersController(IUsersService usersService)
+    [ApiController]
+    [Route("[controller]")]
+    public class UsersController : ControllerBase
     {
-        _userService = usersService;
-    }
+        private readonly IUsersService _userService;
 
-    [HttpPost]
-    public async Task<IActionResult> CreateUser([FromBody] Users users)
-    {
-        var existingUser = await _userService.GetUser(users.UserId);
-
-        if (existingUser is not null)
+        public UsersController(IUsersService usersService)
         {
-            return Conflict();
+            _userService = usersService;
         }
 
-        await _userService.CreateUser(users);
-
-        return Ok();
-    }
-
-    [HttpDelete("{id:guid}")]
-    public async Task<ActionResult<Users>> DeletetUser(Guid id)
-    {
-        var user = await _userService.GetUser(id);
-
-        if (user is null)
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] Users users)
         {
-            return NotFound();
+            // Check if email already exists
+            var existingUser = await _userService.GetUserByEmail(users.Email);
+            if (existingUser != null)
+            {
+                return Conflict("A user with the same email already exists.");
+            }
+
+            await _userService.CreateUser(users);
+            return CreatedAtAction(nameof(GetUser), new { id = users.UserId }, users);
         }
 
-        await _userService.DeleteUser(id);
-
-        return Ok();
-    }
-
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<Users>> GetUser(Guid id)
-    {
-        var user = await _userService.GetUser(id);
-
-        if (user is null)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
-            return NotFound();
+            var user = await _userService.GetUser(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            await _userService.DeleteUser(id);
+            return NoContent();
         }
 
-        return Ok(user);
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<List<Users>>> GetAllUsers()
-    {
-        return Ok(await _userService.GetAllUsers());
-    }
-
-    [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateUser(Guid id, [FromBody] Users newUser)
-    {
-        if (id != newUser.UserId)
+        [HttpGet("{id:guid}")]
+        public async Task<ActionResult<Users>> GetUser(Guid id)
         {
-            return BadRequest();
+            var user = await _userService.GetUser(id);
+            if (user == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(user);
         }
 
-        var existingUser = await _userService.GetUser(id);
-
-        if (existingUser is null)
+        [HttpGet]
+        public async Task<ActionResult<List<Users>>> GetAllUsers()
         {
-            return NotFound();
+            var users = await _userService.GetAllUsers();
+            return Ok(users);
         }
 
-        await _userService.UpdateUser(newUser);
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateUser(Guid id, [FromBody] Users newUser)
+        {
+            if (id != newUser.UserId)
+            {
+                return BadRequest("User ID mismatch.");
+            }
 
-        return Ok();
+            var existingUser = await _userService.GetUser(id);
+            if (existingUser == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            // Optionally, check for email conflicts
+            var emailConflict = await _userService.GetUserByEmail(newUser.Email);
+            if (emailConflict != null && emailConflict.UserId != id)
+            {
+                return Conflict("Email is already in use.");
+            }
+
+            await _userService.UpdateUser(newUser);
+            return NoContent();
+        }
     }
 }
